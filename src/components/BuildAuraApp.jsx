@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -26,13 +28,20 @@ import {
     DollarSign,
     IndianRupee,
     Headphones,
-    Award
+    Award,
+    ExternalLink,
+    ShoppingCart,
+    BarChart3,
+    Settings,
+    LayoutGrid
 } from 'lucide-react';
 
 const AGENCY_EMAIL = 'aurabuildagency@gmail.com';
+const SATYAM_PHONE = '+91 9326903988';
+const PARAG_PHONE = '+91 8828422722';
 
 // --- INLINE SVG BRAND ICONS ---
-const GithubIcon = ({ size = 18, className = "" }) => (
+const InstagramIcon = ({ size = 18, className = "" }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
         <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
     </svg>
@@ -44,12 +53,13 @@ const LinkedinIcon = ({ size = 18, className = "" }) => (
     </svg>
 );
 
+const GmailIcon = ({ size = 18, className = "" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+    </svg>
+);
+
 // --- FONTS ---
-// Sora: display / structural type — clean, confident, reads as "professional software studio"
-// rather than a trendy geometric face. Inter: body copy, the industry-standard for legibility
-// in product UIs, which is exactly the register a technical US client expects.
-// IBM Plex Mono: technical annotations, specs, codes. Move this @import into your global
-// stylesheet / index.html <link> tags for production — kept inline here for drop-in convenience.
 const FontLoader = () => (
     <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -101,9 +111,7 @@ const staggerContainer = {
     }
 };
 
-// --- LIVE DUAL-TIMEZONE CLOCK ---
-// Grounded signature element: BuildAura's real claim is US + India coverage.
-// Instead of just saying it, show it — live, running clocks in both zones.
+// --- LIVE DUAL-TIMEZONE CLOCK (MUMBAI & NYC) ---
 function useLiveTime(timeZone) {
     const [time, setTime] = useState(() =>
         new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone }).format(new Date())
@@ -118,20 +126,20 @@ function useLiveTime(timeZone) {
 }
 
 const DualClock = ({ compact = false }) => {
-    const est = useLiveTime('America/New_York');
-    const ist = useLiveTime('Asia/Kolkata');
+    const mum = useLiveTime('Asia/Kolkata');
+    const nyc = useLiveTime('America/New_York');
     return (
         <div className={`flex items-center ${compact ? 'gap-3 text-[11px]' : 'gap-5 text-xs'} font-tech text-[#A0A0A0]`}>
             <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#5FBFAE] animate-pulse"></span>
-                <span className="text-[#F5F5F4]">{est}</span>
-                <span>NYC</span>
+                <span className="text-[#F5F5F4]">{mum}</span>
+                <span>MUM</span>
             </div>
             <div className="w-px h-3 bg-[#242424]"></div>
             <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#5FBFAE] animate-pulse"></span>
-                <span className="text-[#F5F5F4]">{ist}</span>
-                <span>MUM</span>
+                <span className="text-[#F5F5F4]">{nyc}</span>
+                <span>NYC</span>
             </div>
         </div>
     );
@@ -139,10 +147,10 @@ const DualClock = ({ compact = false }) => {
 
 // --- TOP ANNOUNCEMENT BANNER ---
 const TopBanner = () => (
-    <div className="relative z-50 bg-[#C9962E] text-black">
+    <div className="relative z-40 bg-[#C9962E] text-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-1.5 sm:gap-4 text-center sm:text-left">
             <p className="font-tech text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-medium">
-                Serving US startups &amp; Indian businesses — EST · PST · IST coverage
+                Serving global clients from India — 24/7 IST · EST · PST coverage
             </p>
             <a
                 href={`mailto:${AGENCY_EMAIL}`}
@@ -155,17 +163,97 @@ const TopBanner = () => (
     </div>
 );
 
+// --- FIXED NAVBAR ---
+const FixedNavbar = ({ isMenuOpen, setIsMenuOpen }) => (
+    <>
+        <nav className="fixed top-[40px] left-0 right-0 z-40 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#242424]">
+            <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                {/* Logo */}
+                <a href="#home" className="font-display font-extrabold text-2xl text-[#F5F5F4] hover:text-[#C9962E] transition-colors">
+                    BuildAura
+                </a>
+
+                {/* Desktop Links */}
+                <div className="hidden md:flex items-center space-x-5 text-sm font-medium text-[#A0A0A0]">
+                    <a href="#services" className="hover:text-[#F5F5F4] transition-colors">Capabilities</a>
+                    <a href="#stack" className="hover:text-[#F5F5F4] transition-colors">Stack</a>
+                    <a href="#pricing" className="hover:text-[#F5F5F4] transition-colors">Pricing</a>
+                    <a href="#founders" className="hover:text-[#F5F5F4] transition-colors">Team</a>
+                    <a href="#projects" className="hover:text-[#F5F5F4] transition-colors">Work</a>
+                    <a href="#partnership" className="hover:text-[#F5F5F4] transition-colors">Partnership</a>
+                    <a href="#faq" className="hover:text-[#F5F5F4] transition-colors">FAQ</a>
+                </div>
+
+                {/* CTA + Mobile Menu */}
+                <div className="flex items-center gap-3">
+                    <a
+                        href={`mailto:${AGENCY_EMAIL}`}
+                        className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-xs font-tech bg-[#C9962E] text-black hover:bg-[#E3B84A] transition-colors"
+                    >
+                        <Mail className="w-3.5 h-3.5" />
+                        Contact
+                    </a>
+                    <button
+                        type="button"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="md:hidden w-6 h-6 flex items-center justify-center text-[#A0A0A0] hover:text-[#F5F5F4]"
+                        aria-label="Toggle menu"
+                    >
+                        {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Dropdown */}
+            {isMenuOpen && (
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="md:hidden bg-[#0A0A0A] border-b border-[#242424] px-6 py-6 flex flex-col space-y-4 text-[#A0A0A0] font-medium"
+                >
+                    <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">About</a>
+                    <a href="#services" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Capabilities</a>
+                    <a href="#stack" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Stack</a>
+                    <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Pricing</a>
+                    <a href="#founders" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Team</a>
+                    <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Work</a>
+                    <a href="#partnership" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Partnership</a>
+                    <a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">FAQ</a>
+                    <a
+                        href={`mailto:${AGENCY_EMAIL}`}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="inline-flex items-center gap-2 text-[#C9962E] font-tech text-xs"
+                    >
+                        <Mail className="w-4 h-4" />
+                        {AGENCY_EMAIL}
+                    </a>
+                    <div className="pt-2"><DualClock compact /></div>
+                    <a
+                        href="#contact"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="inline-block text-center py-3 bg-[#C9962E] text-black font-tech text-xs uppercase tracking-wider"
+                    >
+                        Start a Project
+                    </a>
+                </motion.div>
+            )}
+        </nav>
+        {/* Spacer for fixed navbar */}
+        <div className="h-[80px]"></div>
+    </>
+);
+
 // --- TRUST MARQUEE ---
 const TrustMarquee = () => {
     const items = [
         "5+ Production Apps Shipped",
-        "US & India Client Coverage",
+        "Global Client Coverage",
         "React · Next.js · Node.js",
         "AI Integration Ready",
         "Transparent Fixed Pricing",
         "Direct Engineer Access",
-        "Stripe & PayPal Ready",
-        "UPI & Razorpay Compatible",
+        "Stripe & Razorpay Ready",
+        "24/7 Support Available",
     ];
     const doubled = [...items, ...items];
     return (
@@ -182,21 +270,42 @@ const TrustMarquee = () => {
     );
 };
 
+// --- SCROLL TO TOP ---
+const ScrollToTop = () => {
+    const [visible, setVisible] = useState(false);
+    useEffect(() => {
+        const onScroll = () => setVisible(window.scrollY > 600);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+    if (!visible) return null;
+    return (
+        <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="fixed bottom-6 right-6 z-50 w-11 h-11 border border-[#C9962E]/50 bg-black/90 backdrop-blur-sm flex items-center justify-center text-[#C9962E] hover:bg-[#C9962E] hover:text-black transition-colors duration-200"
+            aria-label="Scroll to top"
+        >
+            <ChevronUp className="w-5 h-5" />
+        </button>
+    );
+};
+
 // --- FAQ ACCORDION ---
 const FAQSection = () => {
     const [openIdx, setOpenIdx] = useState(0);
     const faqs = [
         {
-            q: "Do you work with US clients remotely?",
-            a: "Yes. We work exclusively remote with US founders and SMBs. Our IST schedule overlaps US morning through evening (EST/PST), so you get same-day responses and regular sync calls in your timezone."
+            q: "Do you work with international clients?",
+            a: "Yes. We serve US startups, UK SMBs, Australian tech companies, and businesses globally. Our IST timezone (Mumbai) overlaps with most global business hours, ensuring same-day responses and regular sync calls in your timezone."
         },
         {
-            q: "Can Indian businesses pay in INR?",
-            a: "Absolutely. Our rate card is listed in INR with USD equivalents for reference. We accept UPI, bank transfer, and Razorpay for Indian clients, and Stripe or wire transfer for US clients."
+            q: "Can clients pay in different currencies?",
+            a: "Absolutely. Our rate card is available in INR, USD, EUR, and GBP. We accept UPI, bank transfers, and Razorpay for India, Stripe for US/international, and crypto payments for tech-forward clients."
         },
         {
             q: "Why a two-person studio instead of a big agency?",
-            a: "No account managers, no hand-offs, no junior devs rotated onto your project. The same two engineers who scope your project are the ones writing every line of code — which is why we ship in weeks, not months."
+            a: "No account managers, no hand-offs, no junior devs rotated onto your project. Satyam and Parag are the core developers writing every line of code — which is why we ship in weeks, not months."
         },
         {
             q: "What's included in the starting price tiers?",
@@ -204,7 +313,7 @@ const FAQSection = () => {
         },
         {
             q: "Do you handle AI and LLM integrations?",
-            a: "Yes. We've shipped AI shopping assistants, review summarization, NLP booking, and writing tools in production. LLM orchestration and agentic workflows are available for early-access engagements."
+            a: "Yes. We've shipped AI shopping assistants, review summarization, NLP booking, and writing tools in production. LLM orchestration and agentic workflows are available for engagements."
         },
         {
             q: "How do I get started?",
@@ -215,8 +324,8 @@ const FAQSection = () => {
     return (
         <section id="faq" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
             <div className="max-w-2xl mb-12">
-                <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">07 — FAQ</h2>
-                <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Questions from US &amp; India clients</h3>
+                <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">08 — FAQ</h2>
+                <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Questions from clients worldwide</h3>
             </div>
             <div className="max-w-3xl border border-[#242424] divide-y divide-[#242424]">
                 {faqs.map((faq, idx) => (
@@ -249,26 +358,98 @@ const FAQSection = () => {
     );
 };
 
-// --- SCROLL TO TOP ---
-const ScrollToTop = () => {
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const onScroll = () => setVisible(window.scrollY > 600);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
-    if (!visible) return null;
-    return (
-        <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="fixed bottom-6 right-6 z-50 w-11 h-11 border border-[#C9962E]/50 bg-black/90 backdrop-blur-sm flex items-center justify-center text-[#C9962E] hover:bg-[#C9962E] hover:text-black transition-colors duration-200"
-            aria-label="Scroll to top"
-        >
-            <ChevronUp className="w-5 h-5" />
-        </button>
-    );
-};
+// --- FOOTER ---
+const Footer = () => (
+    <footer className="relative z-10 border-t border-[#242424] bg-black py-16">
+        <div className="max-w-7xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-12 mb-16">
+                {/* Left: BuildAura Logo & Tagline */}
+                <div className="space-y-4">
+                    <h3 className="font-display font-bold text-2xl text-[#F5F5F4]">BuildAura</h3>
+                    <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                        Full-stack software development studio serving startups and enterprises globally. Built by developers, for developers.
+                    </p>
+                    <div className="flex items-center gap-4 pt-4">
+                        <a href="https://www.linkedin.com/in/satyam-sawant-a257802a7/" target="_blank" rel="noopener noreferrer" className="text-[#A0A0A0] hover:text-[#C9962E] transition-colors" title="LinkedIn">
+                            <LinkedinIcon size={33} />
+                        </a>
+                        <a href={`mailto:${AGENCY_EMAIL}`} className="text-[#A0A0A0] hover:text-[#C9962E] transition-colors" title="Email">
+                            <GmailIcon size={33} />
+                        </a>
+                    </div>
+                </div>
+
+                {/* Middle: Quick Links */}
+                <div className="space-y-6">
+                    <h4 className="font-display font-bold text-[#F5F5F4]">Quick Links</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2.5">
+                            <a href="#about" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">About Us</a>
+                            <a href="#services" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Services</a>
+                            <a href="#stack" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Tech Stack</a>
+                            <a href="#pricing" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Pricing</a>
+                        </div>
+                        <div className="space-y-2.5">
+                            <a href="#founders" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Team</a>
+                            <a href="#projects" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Work</a>
+                            <a href="#partnership" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Partnership</a>
+                            <a href="#faq" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">FAQ</a>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right: Creators Contact */}
+                <div className="space-y-6">
+                    <h4 className="font-display font-bold text-[#F5F5F4]">Founders</h4>
+
+                    <div className="space-y-4">
+                        {/* Satyam */}
+                        <div className="p-4 border border-[#242424] bg-[#0A0A0A]/60">
+                            <p className="font-display font-semibold text-[#F5F5F4] text-sm">Satyam</p>
+                            <p className="text-xs text-[#A0A0A0] mt-1">Co-Founder & Tech Lead</p>
+                            <div className="flex items-center gap-2 mt-2.5">
+                                <Phone className="w-3.5 h-3.5 text-[#C9962E]" />
+                                <a href="tel:+919326903988" className="text-xs text-[#C9962E] hover:text-[#E3B84A] transition-colors font-tech">
+                                    +91 9326903988
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Parag */}
+                        <div className="p-4 border border-[#242424] bg-[#0A0A0A]/60">
+                            <p className="font-display font-semibold text-[#F5F5F4] text-sm">Parag</p>
+                            <p className="text-xs text-[#A0A0A0] mt-1">Co-Founder & Full-Stack Dev</p>
+                            <div className="flex items-center gap-2 mt-2.5">
+                                <Phone className="w-3.5 h-3.5 text-[#C9962E]" />
+                                <a href="tel:+918828422722" className="text-xs text-[#C9962E] hover:text-[#E3B84A] transition-colors font-tech">
+                                    +91 8828422722
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Email */}
+                        <div className="p-4 border border-[#242424] bg-[#0A0A0A]/60">
+                            <p className="font-display font-semibold text-[#F5F5F4] text-sm">Email</p>
+                            <a href={`mailto:${AGENCY_EMAIL}`} className="text-xs text-[#C9962E] hover:text-[#E3B84A] transition-colors font-tech mt-2 block break-all">
+                                {AGENCY_EMAIL}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom: Copyright & Location */}
+            <div className="border-t border-[#242424] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs text-[#A0A0A0] font-tech">
+                    @ 2026 BuildAura Startup. Based in <span className="text-[#C9962E]">Maharashtra, India</span>
+                </p>
+                <div className="text-xs text-[#A0A0A0] font-tech">
+                    <DualClock compact />
+                </div>
+            </div>
+        </div>
+    </footer>
+);
 
 export default function BuildAuraApp() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -277,736 +458,562 @@ export default function BuildAuraApp() {
         {
             code: "CAP-01",
             icon: <Globe className="w-5 h-5" />,
-            title: "Full-Stack Web Applications",
-            desc: "Dynamic, scalable React & Next.js applications backed by robust Node.js and modern database systems tailored for high performance.",
+            title: "Application Development",
+            desc: "Full-stack web and mobile applications built with modern technologies. Custom solutions tailored to your business needs.",
             tags: ["React", "Next.js", "Node.js", "PostgreSQL"]
         },
         {
             code: "CAP-02",
-            icon: <Cpu className="w-5 h-5" />,
-            title: "AI Integration & Workflows",
-            desc: "Smart platforms powered by production AI APIs — LLM integrations, automated review summarization, and agentic workflows that supercharge operations.",
-            tags: ["LLM APIs", "LangChain", "Automation"]
+            icon: <ShoppingCart className="w-5 h-5" />,
+            title: "E-Commerce Applications",
+            desc: "Complete e-commerce solutions with product catalogs, shopping carts, secure payments, and inventory management systems.",
+            tags: ["Stripe", "Razorpay", "Payment Rails"]
         },
         {
             code: "CAP-03",
-            icon: <Layers className="w-5 h-5" />,
-            title: "E-Commerce & SaaS Systems",
-            desc: "Custom e-commerce platforms and SaaS architecture complete with payment rails (Stripe, PayPal), auth, and admin dashboards.",
-            tags: ["Custom UI/UX", "Stripe", "REST / GraphQL"]
+            icon: <BarChart3 className="w-5 h-5" />,
+            title: "SaaS Applications",
+            desc: "Scalable SaaS platforms with multi-tenant architecture, advanced analytics, and enterprise-grade features.",
+            tags: ["Cloud", "Scalable", "Analytics"]
         },
         {
             code: "CAP-04",
-            icon: <Rocket className="w-5 h-5" />,
-            title: "MVP Development",
-            desc: "Your raw startup concept, turned into a fully functioning, pitch-ready product — built to test with real users fast.",
-            tags: ["Fast Iteration", "Scalable Base"]
+            icon: <Settings className="w-5 h-5" />,
+            title: "CRM Based Applications",
+            desc: "Custom CRM solutions to manage customer relationships, sales pipelines, and business operations efficiently.",
+            tags: ["Customer Management", "Automation"]
         },
         {
             code: "CAP-05",
-            icon: <Code className="w-5 h-5" />,
-            title: "API Development & Integration",
-            desc: "Secure, structured RESTful and GraphQL APIs connecting multi-platform systems with reliable performance and speed.",
-            tags: ["Express.js", "JWT Auth", "Webhooks"]
+            icon: <Layers className="w-5 h-5" />,
+            title: "HRMS Based Applications",
+            desc: "Complete Human Resource Management Systems for employee management, payroll, attendance, and performance tracking.",
+            tags: ["HR Management", "Payroll", "Attendance"]
         },
         {
             code: "CAP-06",
-            icon: <Zap className="w-5 h-5" />,
-            title: "Performance & UI/UX Optimization",
-            desc: "Slow, cluttered legacy frontends rebuilt into smooth, responsive, mobile-first interfaces.",
-            tags: ["Framer Motion", "Core Web Vitals", "SEO"]
-        }
-    ];
-
-    const techStack = [
-        {
-            code: "STACK-01",
-            icon: <Code className="w-5 h-5" />,
-            group: "Frontend",
-            items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"]
-        },
-        {
-            code: "STACK-02",
             icon: <Cpu className="w-5 h-5" />,
-            group: "Backend",
-            items: ["Node.js", "Express.js", "REST & GraphQL", "JWT + Refresh Tokens", "Zod"]
-        },
-        {
-            code: "STACK-03",
-            icon: <Database className="w-5 h-5" />,
-            group: "Databases",
-            items: ["MongoDB", "Mongoose", "PostgreSQL", "2dsphere Geospatial Indexing"]
-        },
-        {
-            code: "STACK-04",
-            icon: <Cloud className="w-5 h-5" />,
-            group: "Cloud & Infrastructure",
-            items: ["Docker", "AWS", "Redis", "BullMQ", "RabbitMQ", "Socket.io"]
+            title: "AI Integration & Workflows",
+            desc: "Smart platforms powered by production AI APIs — LLM integrations, automation, and agentic workflows that supercharge operations.",
+            tags: ["LLM APIs", "LangChain", "Automation"]
         }
     ];
 
-    const roadmapStack = ["LLM Integration", "LangChain", "Agentic AI Workflows", "Groq LPU Inference"];
+    const stack = [
+        {
+            category: "Frontend",
+            items: ["React 19", "Next.js 16", "TypeScript", "Framer Motion", "Tailwind CSS", "shadcn/ui"]
+        },
+        {
+            category: "Backend",
+            items: ["Node.js", "Express.js", "Python", "FastAPI", "PostgreSQL", "MongoDB"]
+        },
+        {
+            category: "Deployment & DevOps",
+            items: ["Vercel", "AWS", "Docker", "GitHub Actions", "Kubernetes"]
+        },
+        {
+            category: "AI & APIs",
+            items: ["OpenAI", "Claude", "LangChain", "Stripe", "Razorpay"]
+        }
+    ];
 
-    const pricingTiers = [
+    const pricing = [
         {
-            code: "TIER-01",
-            name: "Simple Website",
-            price: "₹10,000",
-            usd: "≈ $120",
-            desc: "A focused single-purpose site — portfolio, landing page, or small business presence. Up to 5 pages, fully responsive, contact form included.",
-            includes: ["1–5 pages", "Responsive design", "Basic SEO setup", "Contact form"]
+            name: "Landing Pages / Maintenance",
+            priceINR: "₹8000-15000",
+            deliveryWeeks: "1-2",
+            desc: "Perfect for launching your idea",
+            features: ["Mobile Responsive", "Contact Form", "Analytics Setup", "Domain & Hosting Help", "SEO Optimized"]
         },
         {
-            code: "TIER-02",
-            name: "Multi-Page Website",
-            price: "₹20,000",
-            usd: "≈ $240",
-            desc: "A complete business site built to scale — structured content, clean navigation, and a CMS-ready foundation for ongoing updates.",
-            includes: ["6–15 pages", "CMS-ready structure", "On-page SEO", "Analytics setup"]
+            name: "Web Applications ",
+            priceINR: "25000-40000",
+            deliveryWeeks: "4-6",
+            desc: "Full-featured app with backend",
+            features: ["Authentication System", "Database Design", "Admin Dashboard", "Payment Integration", "API Documentation"],
+            highlighted: true
         },
         {
-            code: "TIER-03",
-            name: "E-Commerce Development",
-            price: "₹50,000",
-            usd: "≈ $600",
-            desc: "A full storefront — product catalog, cart, secure checkout, and an admin dashboard to manage inventory and orders.",
-            includes: ["Payment gateway", "Admin dashboard", "Product management", "Order tracking"]
+            name: "SaaS / Ecommerce / LMS / CRM",
+            priceINR: "40000-75000",
+            deliveryWeeks: "8-12",
+            desc: "Enterprise-grade solution",
+            features: ["Multi-tenant Architecture", "Advanced Analytics", "AI Integration", "24/7 Support", "Custom Features"]
+        }
+    ];
+
+    const projects = [
+        {
+            icon: <ShoppingCart className="w-6 h-6 text-[#C9962E]" />,
+            title: "Snazzy Cart",
+            category: "AI-Driven E-Commerce",
+            desc: "A full storefront with a real-time AI shopping assistant and automated review summarization, running on Groq LPU for sub-second inference at checkout.",
+            tags: ["React", "Groq LPU", "AI Shopping Assistant"],
+            highlight: "Sub-second AI inference, live at checkout",
         },
         {
-            code: "TIER-04",
-            name: "Application Development",
-            price: "₹75,000",
-            usd: "≈ $900",
-            desc: "Custom web applications and SaaS platforms — full backend, authentication, database design, and AI integration where needed.",
-            includes: ["Custom backend", "Auth & user roles", "Database design", "AI/API integration"]
+            icon: <Users className="w-6 h-6 text-[#C9962E]" />,
+            title: "Soch Vichar",
+            category: "Social Platform",
+            desc: "A social platform with built-in AI writing assistance and a high-security double-token (access + refresh) auth system for persistent sessions.",
+            tags: ["Node.js", "JWT Refresh Tokens", "AI Writing Assistant"],
+            highlight: "Double-token auth, persistent secure sessions",
+        },
+        {
+            icon: <LayoutGrid className="w-6 h-6 text-[#C9962E]" />,
+            title: "Pro Space",
+            category: "Hybrid Office SaaS",
+            desc: "A hybrid-office platform with a natural-language booking assistant for desks and rooms, plus AI sentiment analysis on workspace feedback.",
+            tags: ["React", "TypeScript", "NLP Booking"],
+            highlight: "Book a desk by typing a sentence, not filling a form",
+        },
+        {
+            icon: <Zap className="w-6 h-6 text-[#C9962E]" />,
+            title: "Disaster Relief Coordination Platform",
+            category: "Production Backend",
+            desc: "A production-grade coordination backend for NGOs, shelters, volunteers, and donors — geospatial matching, live disaster requests, and real-time updates during active emergencies.",
+            tags: ["Node.js", "MongoDB 2dsphere", "Redis + BullMQ", "Socket.io"],
+            highlight: "Real-time coordination across NGOs, shelters & volunteers",
+        },
+        {
+            icon: <BarChart3 className="w-6 h-6 text-[#C9962E]" />,
+            title: "Onetimex Thane",
+            category: "Fintech / Trading Platform",
+            desc: "Sole backend developer on a stock trading and investment platform — REST APIs for onboarding, portfolios and transactions, plus third-party payment integrations and secure session handling.",
+            tags: ["Node.js", "AWS", "REST APIs", "Payment Integrations"],
+            highlight: "Sole backend owner, live financial platform",
         }
     ];
 
     return (
-        <div className="min-h-screen bg-black text-[#F5F5F4] font-body antialiased selection:bg-[#C9962E] selection:text-black">
+        <div className="bg-black text-[#F5F5F4] overflow-x-hidden">
             <FontLoader />
-
             <TopBanner />
-            <ScrollToTop />
-
-            {/* BLUEPRINT GRID BACKDROP — pure black base, no color tint */}
-            <div className="fixed inset-0 pointer-events-none blueprint-grid z-0"></div>
-            <div className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-black via-transparent to-black"></div>
-
-            {/* --- NAVBAR --- */}
-            <nav className="sticky top-0 z-50 backdrop-blur-md bg-black/85 border-b border-[#242424]">
-                <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                    <a href="#home" className="flex items-center gap-2.5">
-                        <span className="w-8 h-8 border border-[#C9962E]/60 flex items-center justify-center text-[#C9962E] font-tech text-xs">BA</span>
-                        <span className="text-xl font-display font-bold tracking-tight text-[#F5F5F4]">
-                            BuildAura<span className="text-[#C9962E]"></span>
-                        </span>
-                    </a>
-
-                    {/* Desktop Links */}
-                    <div className="hidden md:flex items-center space-x-5 text-sm font-medium text-[#A0A0A0]">
-                        <a href="#about" className="hover:text-[#F5F5F4] transition-colors">About</a>
-                        <a href="#services" className="hover:text-[#F5F5F4] transition-colors">Capabilities</a>
-                        <a href="#stack" className="hover:text-[#F5F5F4] transition-colors">Stack</a>
-                        <a href="#pricing" className="hover:text-[#F5F5F4] transition-colors">Pricing</a>
-                        <a href="#founders" className="hover:text-[#F5F5F4] transition-colors">Team</a>
-                        <a href="#projects" className="hover:text-[#F5F5F4] transition-colors">Work</a>
-                        <a href="#faq" className="hover:text-[#F5F5F4] transition-colors">FAQ</a>
-                    </div>
-
-                    <div className="hidden xl:flex items-center gap-4">
-                        <a
-                            href={`mailto:${AGENCY_EMAIL}`}
-                            className="inline-flex items-center gap-1.5 font-tech text-[10px] text-[#A0A0A0] hover:text-[#C9962E] transition-colors"
-                        >
-                            <Mail className="w-3.5 h-3.5" />
-                            {AGENCY_EMAIL}
-                        </a>
-                        <DualClock compact />
-                    </div>
-
-                    <div className="hidden lg:block xl:hidden">
-                        <DualClock compact />
-                    </div>
-
-                    <div className="hidden md:block">
-                        <a
-                            href="#contact"
-                            className="inline-flex items-center gap-2 px-5 py-2.5 font-tech text-xs uppercase tracking-wider text-black bg-[#C9962E] hover:bg-[#E3B84A] transition-colors duration-200"
-                        >
-                            Start a Project
-                            <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
-                    </div>
-
-                    {/* Mobile Menu Button */}
-                    <button
-                        className="md:hidden text-[#F5F5F4]"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
-                </div>
-
-                {/* Mobile Dropdown */}
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="md:hidden bg-[#0A0A0A] border-b border-[#242424] px-6 py-6 flex flex-col space-y-4 text-[#A0A0A0] font-medium"
-                    >
-                        <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">About</a>
-                        <a href="#services" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Capabilities</a>
-                        <a href="#stack" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Stack</a>
-                        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Pricing</a>
-                        <a href="#founders" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Team</a>
-                        <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Work</a>
-                        <a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">FAQ</a>
-                        <a
-                            href={`mailto:${AGENCY_EMAIL}`}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="inline-flex items-center gap-2 text-[#C9962E] font-tech text-xs"
-                        >
-                            <Mail className="w-4 h-4" />
-                            {AGENCY_EMAIL}
-                        </a>
-                        <div className="pt-2"><DualClock /></div>
-                        <a
-                            href="#contact"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="inline-block text-center py-3 bg-[#C9962E] text-black font-tech text-xs uppercase tracking-wider"
-                        >
-                            Start a Project
-                        </a>
-                    </motion.div>
-                )}
-            </nav>
-
-            {/* --- HERO SECTION --- */}
-            <section id="home" className="relative z-10 pt-16 pb-12 px-6 max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-12 gap-12 items-start">
-                    <motion.div
-                        className="md:col-span-7 space-y-7"
-                        initial="hidden"
-                        animate="visible"
-                        variants={staggerContainer}
-                    >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-2 font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E]">
-                            <span className="w-6 h-px bg-[#C9962E]"></span>
-                            Full-Stack Studio · US &amp; India
-                        </motion.div>
-
-                        <motion.h1 variants={fadeInUp} className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold tracking-tight leading-[1.05] text-[#F5F5F4]">
-                            Production-grade softwares for <br />
-                            <span className="text-[#C9962E]">International clients</span> &amp; <span className="text-[#5FBFAE]">Indian businesses</span>
-                        </motion.h1>
-
-                        <motion.p variants={fadeInUp} className="text-lg text-[#A0A0A0] leading-relaxed max-w-2xl font-body">
-                            BuildAura is a two-engineer studio that ships full-stack web apps, SaaS platforms,
-                            and AI-powered products — with transparent pricing in INR &amp; USD, direct access
-                            to the developers building your product, and timezone coverage from New York to Mumbai.
-                        </motion.p>
-
-                        <motion.div variants={fadeInUp} className="pt-1 flex flex-col sm:flex-row items-start gap-4">
-                            <a
-                                href="#contact"
-                                className="w-full sm:w-auto px-8 py-4 font-tech text-xs uppercase tracking-wider text-black bg-[#C9962E] hover:bg-[#E3B84A] transition-colors duration-200 flex items-center justify-center gap-2 group"
-                            >
-                                Schedule a Consultation
-                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                            </a>
-                            <a
-                                href={`mailto:${AGENCY_EMAIL}`}
-                                className="w-full sm:w-auto px-8 py-4 font-tech text-xs uppercase tracking-wider text-[#F5F5F4] border border-[#242424] hover:border-[#C9962E]/60 transition-colors duration-200 flex items-center justify-center gap-2"
-                            >
-                                <Mail className="w-4 h-4 text-[#C9962E]" />
-                                {AGENCY_EMAIL}
-                            </a>
-                        </motion.div>
-
-                        <motion.div variants={fadeInUp} className="pt-8 border-t border-[#242424] grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div>
-                                <h4 className="text-2xl font-display font-bold text-[#F5F5F4]">5+</h4>
-                                <p className="text-xs text-[#A0A0A0] font-tech mt-1">Products Shipped</p>
-                            </div>
-                            <div>
-                                <h4 className="text-2xl font-display font-bold text-[#F5F5F4]">2</h4>
-                                <p className="text-xs text-[#A0A0A0] font-tech mt-1">Engineers, Every Build</p>
-                            </div>
-                            <div>
-                                <h4 className="text-2xl font-display font-bold text-[#F5F5F4]">24h</h4>
-                                <p className="text-xs text-[#A0A0A0] font-tech mt-1">Response Guarantee</p>
-                            </div>
-                            <div>
-                                <h4 className="text-2xl font-display font-bold text-[#F5F5F4]">EST–IST</h4>
-                                <p className="text-xs text-[#A0A0A0] font-tech mt-1">Dual-Timezone Coverage</p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* HERO — TITLE BLOCK / SPEC STAMP */}
-                    <motion.div
-                        className="md:col-span-5"
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.2 }}
-                    >
-                        <div className="border border-[#242424] bg-[#0A0A0A]/80 backdrop-blur-sm gold-glow card-lift">
-                            <div className="flex items-center justify-between px-5 py-3 border-b border-[#242424]">
-                                <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#A0A0A0]">Engagement Spec</span>
-                                <span className="flex items-center gap-1.5 font-tech text-[10px] uppercase tracking-wider text-[#5FBFAE]">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#5FBFAE] animate-pulse"></span>
-                                    Accepting Projects
-                                </span>
-                            </div>
-
-                            <div className="divide-y divide-[#242424] font-tech text-xs">
-                                {[
-                                    ["Studio", "BuildAura"],
-                                    ["Team Size", "2 — no subcontractors"],
-                                    ["Markets", "United States · India"],
-                                    ["Focus", "Full-Stack & AI Product Eng."],
-                                    ["Core Stack", "React · Next.js · Node.js"],
-                                    ["Coverage", "EST · PST · IST"],
-                                    ["Contact", AGENCY_EMAIL],
-                                ].map(([k, v]) => (
-                                    <div key={k} className="grid grid-cols-5 px-5 py-3">
-                                        <span className="col-span-2 text-[#A0A0A0] uppercase tracking-wider">{k}</span>
-                                        {k === "Contact" ? (
-                                            <a href={`mailto:${v}`} className="col-span-3 text-[#C9962E] hover:text-[#E3B84A] transition-colors break-all">{v}</a>
-                                        ) : (
-                                            <span className="col-span-3 text-[#F5F5F4]">{v}</span>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className="m-5 p-3 border border-[#5FBFAE]/30 bg-[#5FBFAE]/5 flex items-center gap-2 font-tech text-xs text-[#5FBFAE]">
-                                <Shield className="w-4 h-4 shrink-0" />
-                                Fixed quotes · No hidden fees · Direct engineer access
-                            </div>
-
-                            <div className="px-5 pb-5">
-                                <DualClock />
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
+            <FixedNavbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <TrustMarquee />
 
-            {/* --- GOAL & ABOUT SECTION --- */}
-            <section id="about" className="relative z-10 py-20 bg-[#0A0A0A]/60 border-y border-[#242424]">
-                <div className="max-w-7xl mx-auto px-6">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                        className="max-w-3xl mb-16"
-                    >
-                        <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">01 — Our Position</h2>
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4] leading-tight">
-                            A small team isn't a limitation here — it's the reason we're faster than agencies ten times our size.
-                        </h3>
-                        <p className="mt-4 text-[#A0A0A0] leading-relaxed">
-                            Every engagement is led directly by the two engineers who architect, write, and
-                            ship the product — end to end, frontend to backend. No account managers, no
-                            rotating juniors, no scope creep, and no waiting for a message to travel up and
-                            down a chain of command. That's how a two-person studio delivers full applications
-                            in fewer cycles than a twenty-person agency.
-                        </p>
-                    </motion.div>
-
-                    <div className="grid md:grid-cols-3 gap-px bg-[#242424]">
-                        {[
-                            {
-                                icon: <Timer className="w-5 h-5 text-[#C9962E]" />,
-                                title: "Fewer Hands, Faster Delivery",
-                                desc: "With just two engineers on every build, there's no hand-off delay, no waiting on a bigger team's schedule — decisions and code happen in the same sitting."
-                            },
-                            {
-                                icon: <Users className="w-5 h-5 text-[#C9962E]" />,
-                                title: "Direct Access, Always",
-                                desc: "You talk to the person writing your code, not a project manager relaying your notes. Fewer people, clearer communication, fewer mistakes."
-                            },
-                            {
-                                icon: <Code className="w-5 h-5 text-[#C9962E]" />,
-                                title: "Full-Stack, Not Fragmented",
-                                desc: "Frontend, backend, infrastructure, and AI integration — handled by the same two people who understand the whole system, not siloed specialists."
-                            }
-                        ].map((card, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="p-8 bg-black"
-                            >
-                                <div className="mb-6">{card.icon}</div>
-                                <h4 className="text-lg font-display font-bold text-[#F5F5F4] mb-3">{card.title}</h4>
-                                <p className="text-[#A0A0A0] text-sm leading-relaxed">{card.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* --- GLOBAL REACH — US & INDIA --- */}
-            <section className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-px bg-[#242424]">
-                    <motion.div
-                        initial={{ opacity: 0, x: -16 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="p-10 bg-black card-lift"
-                    >
-                        <div className="flex items-center gap-3 mb-6">
-                            <DollarSign className="w-6 h-6 text-[#C9962E]" />
-                            <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#C9962E]">For US Clients</span>
-                        </div>
-                        <h4 className="text-2xl font-display font-bold text-[#F5F5F4] mb-4">Built for American startups &amp; SMBs</h4>
-                        <ul className="space-y-3 text-[#A0A0A0] text-sm leading-relaxed">
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> EST/PST overlap for daily standups &amp; async updates</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Stripe, PayPal &amp; US wire transfer accepted</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Production-grade code, English-first communication</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> MVP-to-scale architecture — no throwaway prototypes</li>
-                        </ul>
-                    </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 16 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="p-10 bg-black card-lift"
-                    >
-                        <div className="flex items-center gap-3 mb-6">
-                            <IndianRupee className="w-6 h-6 text-[#5FBFAE]" />
-                            <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#5FBFAE]">For Indian Clients</span>
-                        </div>
-                        <h4 className="text-2xl font-display font-bold text-[#F5F5F4] mb-4">Trusted by Indian businesses going digital</h4>
-                        <ul className="space-y-3 text-[#A0A0A0] text-sm leading-relaxed">
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Transparent INR pricing — no USD conversion surprises</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> UPI, bank transfer &amp; Razorpay payment options</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> E-commerce, SaaS &amp; custom app development</li>
-                            <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Mumbai-based team with local business understanding</li>
-                        </ul>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* --- HOW WE WORK --- */}
-            <section className="relative z-10 py-24 bg-[#0A0A0A]/60 border-y border-[#242424]">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="max-w-2xl mb-16">
-                        <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">Process</h2>
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">From first email to shipped product</h3>
-                    </div>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#242424]">
-                        {[
-                            { step: "01", title: "Discovery Call", desc: "Share your idea via form or email. We respond within 24 hours with scope questions and a fixed quote.", icon: <Headphones className="w-5 h-5" /> },
-                            { step: "02", title: "Scope & Contract", desc: "Clear deliverables, timeline, and payment terms — in INR or USD. No vague estimates.", icon: <Shield className="w-5 h-5" /> },
-                            { step: "03", title: "Build & Iterate", desc: "Direct access to both engineers. Weekly updates, live demos, and same-day feedback loops.", icon: <Code className="w-5 h-5" /> },
-                            { step: "04", title: "Launch & Handoff", desc: "Deployment support, documentation, and clean code handoff. We stay available post-launch.", icon: <Award className="w-5 h-5" /> },
-                        ].map((item, idx) => (
-                            <motion.div
-                                key={item.step}
-                                initial={{ opacity: 0, y: 12 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.08 }}
-                                className="p-8 bg-black card-lift"
-                            >
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="text-[#C9962E]">{item.icon}</span>
-                                    <span className="font-tech text-[10px] text-[#5C5C5C]">{item.step}</span>
-                                </div>
-                                <h4 className="text-lg font-display font-bold text-[#F5F5F4] mb-3">{item.title}</h4>
-                                <p className="text-[#A0A0A0] text-sm leading-relaxed">{item.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* --- SERVICES SECTION (SPEC SHEET) --- */}
-            <section id="services" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
-                <div className="max-w-2xl mb-16">
-                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">02 — Capability Spec</h2>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">What we build, end to end</h3>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#242424]">
-                    {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.06 }}
-                            className="p-8 border-r border-b border-[#242424] hover:bg-[#0A0A0A]/60 transition-colors duration-200 flex flex-col justify-between card-lift"
-                        >
-                            <div>
-                                <div className="flex items-center justify-between mb-6">
-                                    <span className="text-[#C9962E]">{service.icon}</span>
-                                    <span className="font-tech text-[10px] text-[#5C5C5C]">{service.code}</span>
-                                </div>
-                                <h4 className="text-lg font-display font-bold text-[#F5F5F4] mb-3">{service.title}</h4>
-                                <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6">{service.desc}</p>
-                            </div>
-                            <div className="flex flex-wrap gap-x-3 gap-y-1 pt-4 border-t border-[#242424] font-tech text-[10px] text-[#A0A0A0]">
-                                {service.tags.map((t, idx) => (
-                                    <span key={idx}>#{t.replace(/\s+/g, '')}</span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
-
-            {/* --- TECH STACK --- */}
-            <section id="stack" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
-                <div className="max-w-2xl mb-16">
-                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">03 — Technical Spec</h2>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">The stack behind the work</h3>
-                    <p className="mt-3 text-[#A0A0A0] text-sm leading-relaxed">
-                        Every tool below has shipped in a production system, not a tutorial project.
-                    </p>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 border-l border-t border-[#242424]">
-                    {techStack.map((group) => (
-                        <motion.div
-                            key={group.code}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="p-8 border-r border-b border-[#242424] flex flex-col"
-                        >
-                            <div className="flex items-center justify-between mb-6">
-                                <span className="text-[#C9962E]">{group.icon}</span>
-                                <span className="font-tech text-[10px] text-[#5C5C5C]">{group.code}</span>
-                            </div>
-                            <h4 className="text-base font-display font-bold text-[#F5F5F4] mb-4">{group.group}</h4>
-                            <ul className="space-y-2">
-                                {group.items.map((item) => (
-                                    <li key={item} className="font-tech text-xs text-[#A0A0A0]">{item}</li>
-                                ))}
-                            </ul>
-                        </motion.div>
-                    ))}
-                </div>
-
-                {/* ROADMAP CARD — honest about what's emerging vs. shipped today */}
+            {/* HERO SECTION */}
+            <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24 md:py-32 blueprint-grid">
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mt-px border border-dashed border-[#5FBFAE]/30 bg-[#5FBFAE]/[0.03] p-8"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut' }}
+                    className="max-w-5xl mx-auto text-center space-y-8"
                 >
-                    <div className="flex items-center gap-3 mb-4">
-                        <Sparkles className="w-5 h-5 text-[#5FBFAE]" />
-                        <span className="font-tech text-[10px] uppercase tracking-wider px-2.5 py-1 border border-[#5FBFAE]/40 text-[#5FBFAE]">
-                            Roadmap — Early Access
-                        </span>
+                    <div className="space-y-3">
+                        <h1 className="font-display text-3xl md:text-2xl lg:text-7xl font-bold text-[#F5F5F4] leading-tight">
+                            Your ideas to <span className="text-[#C9962E]">production</span> in weeks, not months
+                        </h1>
                     </div>
-                    <h4 className="text-base font-display font-bold text-[#F5F5F4] mb-2">LLM Orchestration & Agentic AI</h4>
-                    <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-2xl mb-4">
-                        We already integrate AI APIs into production apps today. LangChain-based orchestration
-                        and fully agentic workflows are an active build-out on our end — available now for
-                        early-access engagements, with deeper capability landing as we grow the practice.
+
+                    <p className="font-body text-lg md:text-xl text-[#A0A0A0] max-w-2xl mx-auto">
+                        BuildAura transforms your concept into a ship-ready product. Direct access to founders. No middlemen. No bloat. From US startups to Indian enterprises, we deliver.
                     </p>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1 font-tech text-[10px] text-[#5FBFAE]">
-                        {roadmapStack.map((item) => (
-                            <span key={item}>#{item.replace(/\s+/g, '')}</span>
-                        ))}
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <a
+                            href={`mailto:${AGENCY_EMAIL}`}
+                            className="px-8 py-3 bg-[#C9962E] text-black font-tech text-sm uppercase tracking-wider hover:bg-[#E3B84A] transition-colors"
+                        >
+                            Start Your Project
+                        </a>
+                        <a
+                            href="#projects"
+                            className="px-8 py-3 border border-[#C9962E] text-[#C9962E] font-tech text-sm uppercase tracking-wider hover:bg-[#C9962E] hover:text-black transition-colors"
+                        >
+                            See Our Work
+                        </a>
                     </div>
                 </motion.div>
             </section>
 
-            {/* --- PRICING / RATE CARD --- */}
-            <section id="pricing" className="relative z-10 py-24 bg-[#0A0A0A]/60 border-y border-[#242424]">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="max-w-2xl mb-16">
-                        <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">04 — Rate Card</h2>
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Transparent starting rates</h3>
-                        <p className="mt-3 text-[#A0A0A0] text-sm leading-relaxed">
-                            Fixed starting tiers in INR with USD equivalents — built for Indian businesses
-                            and transparent for US clients. Final scope is confirmed with you before work
-                            begins — no hidden add-ons.
-                        </p>
-                    </div>
+            {/* SERVICES SECTION */}
+            <section id="services" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <div className="max-w-2xl mb-16">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">01 — Services</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Services we provide</h3>
+                    <p className="mt-4 text-[#A0A0A0]">
+                        Application development, E-commerce applications, SaaS applications, CRM based applications, HRMS based applications, and much more for any business globally.
+                    </p>
+                </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#242424]">
-                        {pricingTiers.map((tier, idx) => (
-                            <motion.div
-                                key={tier.code}
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.08 }}
-                                className="p-8 bg-black flex flex-col justify-between"
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#242424]">
+                    {services.map((service, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.08 }}
+                            className="p-8 bg-black flex flex-col justify-between card-lift"
+                        >
+                            <div>
+                                <div className="mb-4 p-3 w-fit bg-[#0A0A0A] border border-[#C9962E]/20 rounded">
+                                    <div className="text-[#C9962E]">{service.icon}</div>
+                                </div>
+                                <h4 className="font-display font-bold text-[#F5F5F4] text-lg mb-2">{service.title}</h4>
+                                <p className="text-sm text-[#A0A0A0] mb-6">{service.desc}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                                {service.tags.map((tag, i) => (
+                                    <span key={i} className="px-3 py-1 bg-[#0A0A0A] border border-[#242424] text-[#A0A0A0] text-xs font-tech rounded">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* PRICING SECTION */}
+            <section id="pricing" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <div className="max-w-2xl mb-12">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">02 — Pricing</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Our pricing based on client requirements. No fixed rate.</h3>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                    {pricing.map((plan, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className={`p-8 border ${plan.highlighted ? 'border-[#C9962E] bg-[#0A0A0A]/60 ring-1 ring-[#C9962E]/30' : 'border-[#242424] bg-black'} card-lift`}
+                        >
+                            <h4 className="font-display font-bold text-[#F5F5F4] text-lg mb-2">{plan.name}</h4>
+                            <p className="text-sm text-[#A0A0A0] mb-4">{plan.desc}</p>
+
+                            <div className="space-y-2 mb-6 pb-6 border-b border-[#242424]">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="font-display font-bold text-3xl text-[#C9962E]">{plan.priceUSD}</span>
+                                    <span className="text-xs text-[#A0A0A0]">or</span>
+                                </div>
+                                <div className="flex items-baseline gap-2">
+                                    <span className="font-display font-bold text-2xl text-[#5FBFAE]">{plan.priceINR}</span>
+                                    <span className="text-xs text-[#A0A0A0]">INR</span>
+                                </div>
+                                <p className="text-xs text-[#A0A0A0] pt-2">Delivery: {plan.deliveryWeeks}</p>
+                            </div>
+
+                            <div className="space-y-3">
+                                {plan.features.map((feature, i) => (
+                                    <div key={i} className="flex items-center gap-2 text-sm text-[#A0A0A0]">
+                                        <CheckCircle2 className="w-4 h-4 text-[#5FBFAE]" />
+                                        {feature}
+                                    </div>
+                                ))}
+                            </div>
+
+                            <a
+                                href={`mailto:${AGENCY_EMAIL}`}
+                                className="mt-8 block text-center py-3 bg-[#C9962E] text-black font-tech text-xs uppercase tracking-wider hover:bg-[#E3B84A] transition-colors"
                             >
+                                Get Started
+                            </a>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* TECH STACK SECTION */}
+            <section id="stack" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <div className="max-w-2xl mb-12">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">03 — Stack</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Modern tech, battle-tested</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {stack.map((section, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="p-6 border border-[#242424] bg-black card-lift"
+                        >
+                            <h4 className="font-display font-bold text-[#C9962E] mb-4">{section.category}</h4>
+                            <div className="space-y-2">
+                                {section.items.map((item, i) => (
+                                    <p key={i} className="text-sm text-[#A0A0A0]">{item}</p>
+                                ))}
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* TEAM SECTION */}
+            <section id="founders" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <div className="max-w-2xl mb-16">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">04 — Personnel</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Meet the BuildAura Team</h3>
+                    <p className="mt-3 text-[#A0A0A0] text-sm">
+                        Satyam and Parag are the founders and core architects of BuildAura. They lead every project personally, ensuring production-grade quality. Our growing team brings specialized expertise in development, design, and digital marketing.
+                    </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#242424]">
+                    {/* Satyam */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="p-8 bg-black flex flex-col justify-between"
+                    >
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="w-32 h-40 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center border border-[#242424] shrink-0">
+                                    {/* <span className="font-tech text-2xl text-white font-bold">SK</span> */}
+                                    <img src="../images/Satyam.jpeg" alt="satyam" className='object-contain' />
+                                </div>
                                 <div>
-                                    <div className="flex items-center justify-between mb-6">
-                                        <span className="font-tech text-[10px] text-[#5C5C5C]">{tier.code}</span>
-                                    </div>
-                                    <h4 className="text-base font-display font-bold text-[#F5F5F4] mb-1">{tier.name}</h4>
-                                    <p className="font-tech text-[10px] text-[#A0A0A0] mb-4">Starting at</p>
-                                    <div className="mb-5">
-                                        <span className="text-3xl font-display font-bold text-[#C9962E]">{tier.price}</span>
-                                        <span className="block font-tech text-[10px] text-[#5C5C5C] mt-1">{tier.usd}</span>
-                                    </div>
-                                    <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6">{tier.desc}</p>
+                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Satyam</h4>
+                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Co-Founder & Tech Lead</p>
                                 </div>
-                                <ul className="space-y-2 pt-4 border-t border-[#242424]">
-                                    {tier.includes.map((item, i) => (
-                                        <li key={i} className="flex items-center gap-2 font-tech text-[11px] text-[#A0A0A0]">
-                                            <CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE] shrink-0" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </motion.div>
-                        ))}
-                    </div>
+                            </div>
 
-                    <p className="mt-6 font-tech text-[11px] text-[#5C5C5C]">
-                        Enterprise or non-standard scope? <a href="#contact" className="text-[#C9962E] hover:text-[#E3B84A]">Request a custom quote →</a>
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                                Full-stack architect with expertise in scalable systems, performance optimization, and production deployment. Leads technical strategy and ensures code quality across all projects.
+                            </p>
+
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Architecture Design</div>
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Performance Optimization</div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Parag */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.06 }}
+                        className="p-8 bg-black flex flex-col justify-between"
+                    >
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="w-32 h-40 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center border border-[#242424] shrink-0">
+                                    <img src="../images/Parag.jpeg" alt="parag" className='object-contain' />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Parag</h4>
+                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Co-Founder & Full-Stack Dev</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                                End-to-end product developer with expertise in React, Node.js, and database design. Manages project delivery and client communication for seamless execution.
+                            </p>
+
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Full-Stack Development</div>
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Project Management</div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Anurag Singh */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.12 }}
+                        className="p-8 bg-black flex flex-col justify-between"
+                    >
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="w-32 h-40 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center border border-[#242424] shrink-0">
+                                    <img src="../images/Anurag.jpeg" alt="anurag" className='object-contain' />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Anurag Singh</h4>
+                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Java Developer</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                                Specializes in robust backend systems and enterprise Java applications. Brings expertise in microservices architecture and high-performance API development.
+                            </p>
+
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Enterprise Java Systems</div>
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Microservices Architecture</div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Vedang Kanade */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.18 }}
+                        className="p-8 bg-black flex flex-col justify-between"
+                    >
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="w-32 h-40 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center border border-[#242424] shrink-0">
+                                    <img src="../images/Vedang.png" alt="vedang" className='object-contain' />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Vedang Kanade</h4>
+                                    <p className="text-xs font-tech text-[#C9962E] mt-1">MERN Stack Developer</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                                Full-stack developer with deep expertise in MongoDB, Express, React, and Node.js. Crafts seamless user experiences with modern JavaScript technologies.
+                            </p>
+
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Full-Stack Development</div>
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Web Application Architecture</div>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Felix Rodrigues */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.24 }}
+                        className="p-8 bg-black flex flex-col justify-between"
+                    >
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4">
+                                <div className="w-32 h-40 flex items-center justify-center border border-[#242424] shrink-0">
+                                    <img src="../images/Felix.png" alt="felix" className='object-contain' />
+                                </div>
+                                <div>
+                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Felix Rodrigues</h4>
+                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Digital Marketing</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                                Strategic digital marketing expert focused on brand growth and market positioning. Drives client success through data-driven marketing campaigns and digital strategy.
+                            </p>
+
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Digital Marketing Strategy</div>
+                                <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Brand & Growth Marketing</div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className="mt-12 p-8 bg-[#0A0A0A]/60 border border-[#242424]">
+                    <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                        <span className="text-[#C9962E] font-tech font-semibold">📈 Growing Team:</span> As our projects scale and client demands expand, we are actively expanding our team with specialized talent. More developers, designers, and specialists will join us to deliver even greater value and faster turnaround times.
                     </p>
                 </div>
             </section>
 
-            {/* --- FOUNDERS / PERSONNEL DOSSIER --- */}
-            <section id="founders" className="relative z-10 py-24">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="max-w-2xl mb-16">
-                        <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">05 — Personnel</h2>
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Who's actually writing your code</h3>
-                        <p className="mt-3 text-[#A0A0A0] text-sm">
-                            No rotating staff, no outsourcing. These two architect, build, and deploy every engagement personally.
-                        </p>
-                    </div>
+            {/* PARTNERSHIP SECTION */}
+            <section id="partnership" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="max-w-4xl mb-12"
+                >
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">PARTNERSHIP</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4] mb-6">Our Latest Partnership Agency</h3>
+                </motion.div>
 
-                    <div className="grid md:grid-cols-2 gap-px bg-[#242424] max-w-4xl">
-                        {/* FOUNDER 1: SATYAM */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="p-8 bg-black flex flex-col justify-between"
-                        >
-                            <div className="space-y-6">
-                                <div className="flex items-start gap-4">
-                                    <img
-                                        src="/images/Satyam.jpeg"
-                                        alt="Satyam Sawant"
-                                        className="w-32 h-40 object-cover grayscale contrast-125 border border-[#242424] shrink-0"
-                                    />
-                                    <div>
-                                        <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Satyam Sawant</h4>
-                                        <p className="text-xs font-tech text-[#C9962E] mt-1">Full Stack Developer</p>
-                                    </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="border border-[#242424] bg-[#0A0A0A]/60 backdrop-blur-sm p-8 md:p-12 card-lift"
+                >
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="space-y-6">
+                            <div className="flex flex-col gap-4">
+                                <div className="w-24 h-24 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] rounded-lg flex items-center justify-center">
+                                    <span className="font-tech text-3xl text-white font-bold">JM</span>
                                 </div>
+                                <div>
+                                    <h4 className="text-2xl font-display font-bold text-[#F5F5F4]">Jugaad Marketing</h4>
+                                    <p className="text-sm font-tech text-[#C9962E] mt-1">Digital Marketing Agencies</p>
+                                </div>
+                            </div>
 
-                                <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                    Owns full-stack architecture, Next.js application design, and LLM service
-                                    integration. Sets the modular code standards every build follows.
-                                </p>
+                            <p className="text-[#A0A0A0] leading-relaxed">
+                                Jugaad Marketing is a strategic partner specializing in digital marketing solutions for businesses of all sizes. They bring creative campaigns, data-driven strategies, and proven results to help brands grow and scale in the digital landscape.
+                            </p>
 
-                                <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
-                                    <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Web Development</div>
-                                    <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> AI Integration & API Architecture</div>
+                            <div className="space-y-3 pt-4 border-t border-[#242424]">
+                                <h5 className="text-sm font-display font-bold text-[#F5F5F4]">Services:</h5>
+                                <div className="space-y-2 text-sm text-[#A0A0A0]">
+                                    <div className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Digital Marketing Strategy</div>
+                                    <div className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Social Media Management</div>
+                                    <div className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> SEO & Content Marketing</div>
+                                    <div className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0 mt-0.5" /> Brand Development</div>
+                                </div>
+                            </div>
+
+                            <a
+                                href="https://jugaadmktg.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-6 py-3 font-tech text-xs uppercase tracking-wider text-black bg-[#C9962E] hover:bg-[#E3B84A] transition-colors duration-200 group"
+                            >
+                                Visit Website
+                                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                            </a>
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 16 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="p-8 bg-[#5FBFAE]/5 border border-[#5FBFAE]/30 rounded-lg"
+                        >
+                            <div className="space-y-4">
+                                <div>
+                                    <p className="text-[#A0A0A0] text-xs font-tech uppercase tracking-wider mb-2">Partnership Focus</p>
+                                    <p className="text-[#F5F5F4] font-display font-bold">Integrated Tech + Marketing Solutions</p>
+                                </div>
+                                <div className="pt-4 border-t border-[#5FBFAE]/20">
+                                    <p className="text-[#A0A0A0] text-xs font-tech uppercase tracking-wider mb-2">Collaboration</p>
+                                    <p className="text-[#F5F5F4] text-sm">We work seamlessly with Jugaad Marketing to provide end-to-end solutions — combining technical excellence with cutting-edge digital marketing strategies.</p>
+                                </div>
+                                <div className="pt-4 border-t border-[#5FBFAE]/20">
+                                    <p className="text-[#A0A0A0] text-xs font-tech uppercase tracking-wider mb-2">Website</p>
+                                    <a
+                                        href="https://jugaadmktg.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-[#C9962E] hover:text-[#E3B84A] transition-colors text-sm font-tech"
+                                    >
+                                        jugaadmktg.com →
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>
-
-                        {/* FOUNDER 2: PARAG */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            className="p-8 bg-black flex flex-col justify-between"
-                        >
-                            <div className="space-y-6">
-                                <div className="flex items-start gap-4">
-                                    <img
-                                        src="/images/Parag.jpeg"
-                                        alt="Parag Yadav"
-                                        className="w-32 h-40 object-cover grayscale contrast-125 border border-[#242424] shrink-0"
-                                    />
-                                    <div>
-                                        <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Parag Yadav</h4>
-                                        <p className="text-xs font-tech text-[#C9962E] mt-1">Backend Developer / System Architect</p>
-                                    </div>
-                                </div>
-
-                                <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                    Owns product experience, UI animation pipelines, and scalable database
-                                    integration — from first wireframe to shipped interface.
-                                </p>
-
-                                <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
-                                    <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> System Architecture</div>
-                                    <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Backend Developer</div>
-                                </div>
-                            </div>
-                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             </section>
 
-            {/* --- FEATURED PROJECTS --- */}
+            {/* PROJECTS SECTION */}
             <section id="projects" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-                    <div>
-                        <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">06 — Delivered Work</h2>
-                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Featured products</h3>
-                    </div>
-                    <p className="text-[#A0A0A0] text-sm max-w-md">
-                        A glimpse into products built with accurate scope, production-grade code, and clean handoff.
-                    </p>
+                <div className="max-w-2xl mb-12">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">05 — Work</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Featured projects we shipped</h3>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 border-l border-t border-[#242424]">
-                    {[
-                        {
-                            title: "Snazzy Cart",
-                            category: "AI-Driven E-Commerce",
-                            desc: "A full storefront with a real-time AI shopping assistant and automated review summarization, running on Groq LPU for sub-second inference at checkout.",
-                            tags: ["React", "Groq LPU", "AI Shopping Assistant"],
-                            highlight: "Sub-second AI inference, live at checkout",
-                        },
-                        {
-                            title: "Soch Vichar",
-                            category: "Social Platform",
-                            desc: "A social platform with built-in AI writing assistance and a high-security double-token (access + refresh) auth system for persistent sessions.",
-                            tags: ["Node.js", "JWT Refresh Tokens", "AI Writing Assistant"],
-                            highlight: "Double-token auth, persistent secure sessions",
-                        },
-                        {
-                            title: "Pro Space",
-                            category: "Hybrid Office SaaS",
-                            desc: "A hybrid-office platform with a natural-language booking assistant for desks and rooms, plus AI sentiment analysis on workspace feedback.",
-                            tags: ["React", "TypeScript", "NLP Booking"],
-                            highlight: "Book a desk by typing a sentence, not filling a form",
-                        },
-                        {
-                            title: "Disaster Relief Coordination Platform",
-                            category: "Production Backend / Systems Engineering",
-                            desc: "A production-grade coordination backend for NGOs, shelters, volunteers, and donors — geospatial matching, live disaster requests, and real-time updates during active emergencies.",
-                            tags: ["Node.js", "MongoDB 2dsphere", "Redis + BullMQ", "Socket.io"],
-                            highlight: "Real-time coordination across NGOs, shelters & volunteers",
-                        },
-                        {
-                            title: "Onetimex Thane",
-                            category: "Fintech / Trading Platform",
-                            desc: "Sole backend developer on a stock trading and investment platform — REST APIs for onboarding, portfolios and transactions, plus third-party payment integrations and secure session handling.",
-                            tags: ["Node.js", "AWS", "REST APIs", "Payment Integrations"],
-                            highlight: "Sole backend owner, live financial platform",
-                        }
-                    ].map((project, idx) => (
+                    {projects.map((project, idx) => (
                         <motion.div
                             key={idx}
                             initial={{ opacity: 0 }}
@@ -1016,22 +1023,24 @@ export default function BuildAuraApp() {
                             className="p-8 border-r border-b border-[#242424] hover:bg-[#0A0A0A]/60 transition-colors duration-200 flex flex-col justify-between card-lift"
                         >
                             <div>
-                                <div className="flex justify-between items-start mb-4">
+                                <div className="flex justify-between items-start mb-4 gap-4">
                                     <span className="font-tech text-[10px] uppercase tracking-wider px-3 py-1 border border-[#C9962E]/40 text-[#C9962E]">
                                         {project.category}
                                     </span>
+                                    {project.icon}
                                 </div>
-                                <h4 className="text-lg font-display font-bold text-[#F5F5F4] mb-3">{project.title}</h4>
+                                <h4 className="font-display font-bold text-[#F5F5F4] text-lg mb-3">{project.title}</h4>
                                 <p className="text-[#A0A0A0] text-sm leading-relaxed mb-6">{project.desc}</p>
-
-                                <div className="p-3 border border-[#5FBFAE]/25 bg-[#5FBFAE]/5 mb-6 text-xs font-tech text-[#5FBFAE]">
-                                    ★ {project.highlight}
+                                <div className="p-3 bg-[#0A0A0A] border border-[#C9962E]/20 rounded mb-6">
+                                    <p className="text-xs font-tech text-[#C9962E]">{project.highlight}</p>
                                 </div>
                             </div>
 
-                            <div className="pt-4 border-t border-[#242424] flex flex-wrap gap-x-3 gap-y-1 font-tech text-[10px] text-[#A0A0A0]">
-                                {project.tags.map((t, i) => (
-                                    <span key={i}>#{t.replace(/\s+/g, '')}</span>
+                            <div className="flex flex-wrap gap-2">
+                                {project.tags.map((tag, i) => (
+                                    <span key={i} className="px-2 py-1 bg-[#0A0A0A] border border-[#242424] text-[#A0A0A0] text-xs font-tech">
+                                        {tag}
+                                    </span>
                                 ))}
                             </div>
                         </motion.div>
@@ -1039,143 +1048,60 @@ export default function BuildAuraApp() {
                 </div>
             </section>
 
+            {/* FAQ SECTION */}
             <FAQSection />
 
-            {/* --- CALL TO ACTION / CONTACT --- */}
-            <section id="contact" className="relative z-10 py-24 border-t border-[#242424] bg-[#0A0A0A]/40">
-                <div className="max-w-4xl mx-auto px-6">
+            {/* CONTACT SECTION */}
+            <section id="contact" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <div className="max-w-2xl mb-12">
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">09 — Work Order</h2>
+                    <DualClock />
+                </div>
+
+                <div className="max-w-2xl space-y-8">
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="space-y-4"
+                    >
+                        <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Let's build your next product.</h3>
+                        <p className="text-[#A0A0A0]">Ready to turn your idea into reality? Get in touch with our team for a free consultation and project quote.</p>
+                    </motion.div>
+
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="border border-[#242424] bg-[#0A0A0A]/60 gold-glow"
+                        transition={{ delay: 0.1 }}
+                        className="grid sm:grid-cols-2 gap-6"
                     >
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 sm:px-10 py-4 border-b border-[#242424]">
-                            <span className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#A0A0A0]">08 — Work Order</span>
-                            <DualClock compact />
-                        </div>
+                        <a
+                            href={`mailto:${AGENCY_EMAIL}`}
+                            className="p-6 border border-[#242424] bg-black hover:bg-[#0A0A0A] transition-colors card-lift"
+                        >
+                            <Mail className="w-8 h-8 text-[#C9962E] mb-4" />
+                            <p className="font-tech text-xs uppercase tracking-wider text-[#A0A0A0] mb-2">Email</p>
+                            <p className="font-display font-bold text-[#F5F5F4] break-all">{AGENCY_EMAIL}</p>
+                        </a>
 
-                        <div className="p-8 sm:p-12">
-                            <h2 className="text-3xl md:text-5xl font-display font-bold text-[#F5F5F4] mb-5 leading-tight">
-                                Have a project in mind? <br />
-                                <span className="text-[#C9962E]">Let's spec it out.</span>
-                            </h2>
-
-                            <p className="text-[#A0A0A0] text-base max-w-xl mb-8">
-                                Whether you're a US founder who needs a dedicated product team, or an Indian
-                                business ready to digitize — two engineers, direct communication, and a fixed
-                                rate card mean you know exactly what you're getting, and when.
-                            </p>
-
-                            <a
-                                href={`mailto:${AGENCY_EMAIL}?subject=BuildAura%20Project%20Inquiry`}
-                                className="inline-flex items-center gap-3 px-8 py-4 font-display font-bold text-base sm:text-lg text-black bg-[#C9962E] hover:bg-[#E3B84A] transition-colors duration-200"
-                            >
-                                <Mail className="w-5 h-5" />
-                                Email Us — {AGENCY_EMAIL}
-                            </a>
-                            <p className="mt-4 text-[#5C5C5C] text-xs font-tech">
-                                Click to open your email app and send us a message directly.
-                            </p>
+                        <div className="p-6 border border-[#242424] bg-black">
+                            <MapPin className="w-8 h-8 text-[#C9962E] mb-4" />
+                            <p className="font-tech text-xs uppercase tracking-wider text-[#A0A0A0] mb-2">Based In</p>
+                            <p className="font-display font-bold text-[#F5F5F4]">Maharashtra, India</p>
+                            <p className="text-sm text-[#A0A0A0] mt-2">Serving global clients 24/7</p>
                         </div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* --- FOOTER (TITLE BLOCK) --- */}
-            <footer className="relative z-10 border-t border-[#242424] bg-black">
-                <div className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
-                    {/* Brand */}
-                    <div className="md:col-span-2 space-y-4">
-                        <a href="#home" className="flex items-center gap-2.5 w-fit">
-                            <span className="w-8 h-8 border border-[#C9962E]/60 flex items-center justify-center text-[#C9962E] font-tech text-xs">BA</span>
-                            <span className="text-xl font-display font-bold tracking-tight text-[#F5F5F4]">
-                                BuildAura
-                            </span>
-                        </a>
-                        <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-sm">
-                            A two-founder engineering studio shipping full-stack web, frontend, and backend
-                            products for US startups and Indian businesses.
-                        </p>
-                        <DualClock />
-                    </div>
+            {/* FOOTER */}
+            <Footer />
 
-                    {/* Navigation */}
-                    <div>
-                        <h5 className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#5C5C5C] mb-4">Navigate</h5>
-                        <ul className="space-y-2.5 text-sm text-[#A0A0A0]">
-                            <li><a href="#about" className="hover:text-[#F5F5F4] transition-colors">About</a></li>
-                            <li><a href="#services" className="hover:text-[#F5F5F4] transition-colors">Capabilities</a></li>
-                            <li><a href="#stack" className="hover:text-[#F5F5F4] transition-colors">Stack</a></li>
-                            <li><a href="#pricing" className="hover:text-[#F5F5F4] transition-colors">Pricing</a></li>
-                            <li><a href="#founders" className="hover:text-[#F5F5F4] transition-colors">Team</a></li>
-                            <li><a href="#projects" className="hover:text-[#F5F5F4] transition-colors">Work</a></li>
-                            <li><a href="#faq" className="hover:text-[#F5F5F4] transition-colors">FAQ</a></li>
-                            <li><a href="#contact" className="hover:text-[#F5F5F4] transition-colors">Contact</a></li>
-                        </ul>
-                    </div>
-
-                    {/* Contact */}
-                    <div>
-                        <h5 className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#5C5C5C] mb-4">Contact</h5>
-                        <div className="space-y-4 text-sm">
-                            <div>
-                                <p className="font-tech text-[10px] uppercase tracking-[0.2em] text-[#5C5C5C] mb-2">Email Us</p>
-                                <a
-                                    href={`mailto:${AGENCY_EMAIL}?subject=BuildAura%20Project%20Inquiry`}
-                                    className="inline-flex items-center gap-2 font-display font-bold text-base sm:text-md text-[#F5F5F4] hover:text-[#C9962E] transition-colors break-all"
-                                >
-                                    <Mail className="w-5 h-5 text-[#C9962E] shrink-0" />
-                                    {AGENCY_EMAIL}
-                                </a>
-                            </div>
-                            <div className="flex items-start gap-2.5 text-[#A0A0A0]">
-                                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-[#C9962E]" />
-                                <div>
-                                    <p className="text-[#F5F5F4]">Mumbai, Maharashtra, India</p>
-                                    <span className="inline-block mt-1 font-tech text-[9px] uppercase tracking-wider px-2 py-0.5 border border-[#242424] text-[#5C5C5C]">
-                                        Remote · Temporary Base
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-2.5 text-[#A0A0A0]">
-                                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-[#C9962E]" />
-                                <div className="space-y-1">
-                                    <p>
-                                        <a href="tel:+919326903988" className="hover:text-[#F5F5F4] transition-colors">+91 93269 03988</a>
-                                        <span className="text-[#5C5C5C]"> — Satyam</span>
-                                    </p>
-                                    <p>
-                                        <a href="tel:+918828422722" className="hover:text-[#F5F5F4] transition-colors">+91 88284 22722</a>
-                                        <span className="text-[#5C5C5C]"> — Parag</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-2.5 text-[#A0A0A0]">
-                                <Timer className="w-4 h-4 mt-0.5 shrink-0 text-[#C9962E]" />
-                                <div>
-                                    <p className="text-[#F5F5F4]">Mon – Sat, 10:00 AM – 7:00 PM IST</p>
-                                    <p className="text-[#5C5C5C] text-xs mt-1">Overlaps US morning – evening hours</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="border-t border-[#242424]">
-                    <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className="font-tech text-[11px] text-[#5C5C5C]">@ {new Date().getFullYear()} BuildAura Studio — Doc. 2026</p>
-                        <a
-                            href={`mailto:${AGENCY_EMAIL}?subject=BuildAura%20Project%20Inquiry`}
-                            className="font-display font-bold text-sm sm:text-base text-[#C9962E] hover:text-[#E3B84A] transition-colors"
-                        >
-                            {AGENCY_EMAIL}
-                        </a>
-                        <p className="font-tech text-[11px] text-[#5C5C5C]">Engineered by Satyam Sawant &amp; Parag Yadav</p>
-                    </div>
-                </div>
-            </footer>
-
+            {/* SCROLL TO TOP BUTTON */}
+            <ScrollToTop />
         </div>
     );
 }
+
+
