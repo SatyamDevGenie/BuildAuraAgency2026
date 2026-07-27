@@ -1090,7 +1090,7 @@ export default function BuildAuraApp() {
                         <a href="#home" className="flex items-center gap-2.5 w-fit">
                             <span className="w-8 h-8 border border-[#C9962E]/60 flex items-center justify-center text-[#C9962E] font-tech text-xs">BA</span>
                             <span className="text-xl font-display font-bold tracking-tight text-[#F5F5F4]">
-                                BuildAura<span className="text-[#C9962E]">.</span>
+                                BuildAura
                             </span>
                         </a>
                         <p className="text-[#A0A0A0] text-sm leading-relaxed max-w-sm">
