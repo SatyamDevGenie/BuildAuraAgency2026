@@ -176,11 +176,12 @@ const FixedNavbar = ({ isMenuOpen, setIsMenuOpen }) => (
                 {/* Desktop Links */}
                 <div className="hidden md:flex items-center space-x-5 text-sm font-medium text-[#A0A0A0]">
                     <a href="#services" className="hover:text-[#F5F5F4] transition-colors">Capabilities</a>
+                    <a href="#solutions" className="hover:text-[#F5F5F4] transition-colors">Solutions</a>
+                    <a href="#process" className="hover:text-[#F5F5F4] transition-colors">Process</a>
                     <a href="#stack" className="hover:text-[#F5F5F4] transition-colors">Stack</a>
                     <a href="#pricing" className="hover:text-[#F5F5F4] transition-colors">Pricing</a>
                     <a href="#founders" className="hover:text-[#F5F5F4] transition-colors">Team</a>
                     <a href="#projects" className="hover:text-[#F5F5F4] transition-colors">Work</a>
-                    <a href="#partnership" className="hover:text-[#F5F5F4] transition-colors">Partnership</a>
                     <a href="#faq" className="hover:text-[#F5F5F4] transition-colors">FAQ</a>
                 </div>
 
@@ -211,13 +212,13 @@ const FixedNavbar = ({ isMenuOpen, setIsMenuOpen }) => (
                     animate={{ opacity: 1, y: 0 }}
                     className="md:hidden bg-[#0A0A0A] border-b border-[#242424] px-6 py-6 flex flex-col space-y-4 text-[#A0A0A0] font-medium"
                 >
-                    <a href="#about" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">About</a>
                     <a href="#services" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Capabilities</a>
+                    <a href="#solutions" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Solutions</a>
+                    <a href="#process" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Process</a>
                     <a href="#stack" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Stack</a>
                     <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Pricing</a>
                     <a href="#founders" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Team</a>
                     <a href="#projects" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Work</a>
-                    <a href="#partnership" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">Partnership</a>
                     <a href="#faq" onClick={() => setIsMenuOpen(false)} className="hover:text-[#F5F5F4]">FAQ</a>
                     <a
                         href={`mailto:${AGENCY_EMAIL}`}
@@ -384,10 +385,10 @@ const Footer = () => (
                     <h4 className="font-display font-bold text-[#F5F5F4]">Quick Links</h4>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2.5">
-                            <a href="#about" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">About Us</a>
                             <a href="#services" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Services</a>
+                            <a href="#solutions" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Solutions</a>
+                            <a href="#process" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Process</a>
                             <a href="#stack" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Tech Stack</a>
-                            <a href="#pricing" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Pricing</a>
                         </div>
                         <div className="space-y-2.5">
                             <a href="#founders" className="text-sm text-[#A0A0A0] hover:text-[#C9962E] transition-colors block">Team</a>
@@ -406,7 +407,7 @@ const Footer = () => (
                         {/* Satyam */}
                         <div className="p-4 border border-[#242424] bg-[#0A0A0A]/60">
                             <p className="font-display font-semibold text-[#F5F5F4] text-sm">Satyam</p>
-                            <p className="text-xs text-[#A0A0A0] mt-1">Co-Founder & Tech Lead</p>
+                            <p className="text-xs text-[#A0A0A0] mt-1">CEO</p>
                             <div className="flex items-center gap-2 mt-2.5">
                                 <Phone className="w-3.5 h-3.5 text-[#C9962E]" />
                                 <a href="tel:+919326903988" className="text-xs text-[#C9962E] hover:text-[#E3B84A] transition-colors font-tech">
@@ -418,7 +419,7 @@ const Footer = () => (
                         {/* Parag */}
                         <div className="p-4 border border-[#242424] bg-[#0A0A0A]/60">
                             <p className="font-display font-semibold text-[#F5F5F4] text-sm">Parag</p>
-                            <p className="text-xs text-[#A0A0A0] mt-1">Co-Founder & Full-Stack Dev</p>
+                            <p className="text-xs text-[#A0A0A0] mt-1">Co-Founder & Team Leader</p>
                             <div className="flex items-center gap-2 mt-2.5">
                                 <Phone className="w-3.5 h-3.5 text-[#C9962E]" />
                                 <a href="tel:+918828422722" className="text-xs text-[#C9962E] hover:text-[#E3B84A] transition-colors font-tech">
@@ -441,7 +442,7 @@ const Footer = () => (
             {/* Bottom: Copyright & Location */}
             <div className="border-t border-[#242424] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p className="text-xs text-[#A0A0A0] font-tech">
-                    @ 2026 BuildAura Startup. Based in <span className="text-[#C9962E]">Maharashtra, India</span>
+                BuildAura based in <span className="text-[#C9962E]">Maharashtra, Mumbai - 400084. Indian Startup 2026</span>
                 </p>
                 <div className="text-xs text-[#A0A0A0] font-tech">
                     <DualClock compact />
@@ -718,6 +719,107 @@ export default function BuildAuraApp() {
                 </div>
             </section>
 
+            {/* PROCESS SECTION */}
+            <section id="process" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="max-w-2xl mb-16"
+                >
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">How We Work</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Our Development Process</h3>
+                    <p className="mt-4 text-[#A0A0A0]">We help businesses automate operations and increase revenue through custom software. Every project follows a structured, transparent approach.</p>
+                </motion.div>
+
+                <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
+                    {[
+                        { step: 1, title: "Discovery", desc: "Understand your goals, pain points, and vision" },
+                        { step: 2, title: "UI Design", desc: "Create beautiful, intuitive interface designs" },
+                        { step: 3, title: "Development", desc: "Build production-grade code fast" },
+                        { step: 4, title: "Testing", desc: "Rigorous QA and performance testing" },
+                        { step: 5, title: "Deployment", desc: "Launch to production with zero downtime" },
+                        { step: 6, title: "Support", desc: "Ongoing maintenance and optimization" }
+                    ].map((item, idx) => (
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: idx * 0.08 }}
+                            className="p-6 border border-[#242424] bg-[#0A0A0A]/60 card-lift relative"
+                        >
+                            <div className="absolute -top-3 -left-3 w-8 h-8 bg-[#C9962E] border-2 border-[#0A0A0A] rounded-full flex items-center justify-center font-tech font-bold text-xs text-black">
+                                {item.step}
+                            </div>
+                            <h4 className="font-display font-bold text-[#F5F5F4] mt-2">{item.title}</h4>
+                            <p className="text-xs text-[#A0A0A0] mt-2">{item.desc}</p>
+                        </motion.div>
+                    ))}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-12">
+                    <motion.div
+                        initial={{ opacity: 0, x: -24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="space-y-6"
+                    >
+                        <h4 className="text-xl font-display font-bold text-[#F5F5F4]">Industries We Serve</h4>
+                        <div className="grid grid-cols-2 gap-4">
+                            {["Healthcare", "Education", "Manufacturing", "Retail", "Logistics", "Real Estate", "Finance", "SaaS"].map((industry, i) => (
+                                <div key={i} className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-4 h-4 text-[#5FBFAE] shrink-0" />
+                                    <span className="text-[#A0A0A0]">{industry}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="space-y-6"
+                    >
+                        <h4 className="text-xl font-display font-bold text-[#F5F5F4]">Our Approach</h4>
+                        <div className="space-y-3">
+                            <div className="flex gap-3">
+                                <div className="w-1 bg-[#C9962E]"></div>
+                                <div>
+                                    <p className="font-semibold text-[#F5F5F4] text-sm">Direct Access</p>
+                                    <p className="text-xs text-[#A0A0A0]">Work with founders, not junior developers</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-3">
+                                <div className="w-1 bg-[#C9962E]"></div>
+                                <div>
+                                    <p className="font-semibold text-[#F5F5F4] text-sm">Transparent Communication</p>
+                                    <p className="text-xs text-[#A0A0A0]">Weekly updates and regular sync calls</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-3">
+                                <div className="w-1 bg-[#C9962E]"></div>
+                                <div>
+                                    <p className="font-semibold text-[#F5F5F4] text-sm">Fixed Scope & Pricing</p>
+                                    <p className="text-xs text-[#A0A0A0]">Know exactly what you're getting, no surprises</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-3">
+                                <div className="w-1 bg-[#C9962E]"></div>
+                                <div>
+                                    <p className="font-semibold text-[#F5F5F4] text-sm">Production Ready</p>
+                                    <p className="text-xs text-[#A0A0A0]">Every line of code meets enterprise standards</p>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
             {/* TECH STACK SECTION */}
             <section id="stack" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
                 <div className="max-w-2xl mb-12">
@@ -749,38 +851,34 @@ export default function BuildAuraApp() {
             {/* TEAM SECTION */}
             <section id="founders" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
                 <div className="max-w-2xl mb-16">
-                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">04 — Personnel</h2>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Meet the BuildAura Team</h3>
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">04 — Team</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Expert Team Members</h3>
                     <p className="mt-3 text-[#A0A0A0] text-sm">
-                        Satyam and Parag are the founders and core architects of BuildAura. They lead every project personally, ensuring production-grade quality. Our growing team brings specialized expertise in development, design, and digital marketing.
+                        Satyam and Parag lead BuildAura as co-founders and architects. Our expanding team combines full-stack development, enterprise systems, and strategic marketing expertise.
                     </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#242424]">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Satyam */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="p-8 bg-black flex flex-col justify-between"
+                        transition={{ delay: 0 }}
+                        className="border border-[#242424] bg-[#0A0A0A]/60 card-lift overflow-hidden flex flex-col"
                     >
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-32 h-40 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center border border-[#242424] shrink-0">
-                                    {/* <span className="font-tech text-2xl text-white font-bold">SK</span> */}
-                                    <img src="../images/Satyam.jpeg" alt="satyam" className='object-contain' />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Satyam</h4>
-                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Co-Founder & Tech Lead</p>
-                                </div>
+                        <div className="w-full h-64 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center overflow-hidden">
+                            <img src="../images/Satyam.jpeg" alt="Satyam" className='w-full h-full object-contain' />
+                        </div>
+                        <div className="p-6 flex flex-col flex-grow space-y-4">
+                            <div>
+                                <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Satyam Sawant</h4>
+                                <p className="text-sm font-tech text-[#C9962E] mt-1">CEO / Software Developer + AI </p>
                             </div>
-
-                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                Full-stack architect with expertise in scalable systems, performance optimization, and production deployment. Leads technical strategy and ensures code quality across all projects.
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed flex-grow">
+                                Full-stack architect with expertise in scalable systems, performance optimization, and production deployment. Leads technical strategy and code quality.
                             </p>
-
-                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0] pt-2 border-t border-[#242424]">
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Architecture Design</div>
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Performance Optimization</div>
                             </div>
@@ -789,28 +887,24 @@ export default function BuildAuraApp() {
 
                     {/* Parag */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.06 }}
-                        className="p-8 bg-black flex flex-col justify-between"
+                        className="border border-[#242424] bg-[#0A0A0A]/60 card-lift overflow-hidden flex flex-col"
                     >
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-32 h-40 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center border border-[#242424] shrink-0">
-                                    <img src="../images/Parag.jpeg" alt="parag" className='object-contain' />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Parag</h4>
-                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Co-Founder & Full-Stack Dev</p>
-                                </div>
+                        <div className="w-full h-64 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center overflow-hidden">
+                            <img src="../images/Parag.jpeg" alt="Parag" className='w-full h-full object-contain' />
+                        </div>
+                        <div className="p-6 flex flex-col flex-grow space-y-4">
+                            <div>
+                                <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Parag Yadav</h4>
+                                <p className="text-sm font-tech text-[#C9962E] mt-1">Tech Lead + Backend Developer + Cloud</p>
                             </div>
-
-                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                End-to-end product developer with expertise in React, Node.js, and database design. Manages project delivery and client communication for seamless execution.
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed flex-grow">
+                                End-to-end product developer with expertise in React, Node.js, and database design. Manages project delivery and client communication.
                             </p>
-
-                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0] pt-2 border-t border-[#242424]">
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Full-Stack Development</div>
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Project Management</div>
                             </div>
@@ -819,28 +913,24 @@ export default function BuildAuraApp() {
 
                     {/* Anurag Singh */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.12 }}
-                        className="p-8 bg-black flex flex-col justify-between"
+                        className="border border-[#242424] bg-[#0A0A0A]/60 card-lift overflow-hidden flex flex-col"
                     >
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-32 h-40 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center border border-[#242424] shrink-0">
-                                    <img src="../images/Anurag.jpeg" alt="anurag" className='object-contain' />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Anurag Singh</h4>
-                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Java Developer</p>
-                                </div>
+                        <div className="w-full h-64 bg-gradient-to-br from-[#C9962E] to-[#5FBFAE] flex items-center justify-center overflow-hidden">
+                            <img src="../images/Anurag.jpeg" alt="Anurag Singh" className='w-full h-full object-contain' />
+                        </div>
+                        <div className="p-6 flex flex-col flex-grow space-y-4">
+                            <div>
+                                <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Anurag Singh</h4>
+                                <p className="text-sm font-tech text-[#C9962E] mt-1">Java Developer + App Developer</p>
                             </div>
-
-                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                Specializes in robust backend systems and enterprise Java applications. Brings expertise in microservices architecture and high-performance API development.
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed flex-grow">
+                                Specializes in robust backend systems and enterprise Java applications. Expert in microservices architecture and high-performance APIs.
                             </p>
-
-                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0] pt-2 border-t border-[#242424]">
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Enterprise Java Systems</div>
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Microservices Architecture</div>
                             </div>
@@ -849,28 +939,24 @@ export default function BuildAuraApp() {
 
                     {/* Vedang Kanade */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.18 }}
-                        className="p-8 bg-black flex flex-col justify-between"
+                        className="border border-[#242424] bg-[#0A0A0A]/60 card-lift overflow-hidden flex flex-col"
                     >
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-32 h-40 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center border border-[#242424] shrink-0">
-                                    <img src="../images/Vedang.png" alt="vedang" className='object-contain' />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Vedang Kanade</h4>
-                                    <p className="text-xs font-tech text-[#C9962E] mt-1">MERN Stack Developer</p>
-                                </div>
+                        <div className="w-full h-64 bg-gradient-to-br from-[#5FBFAE] to-[#C9962E] flex items-center justify-center overflow-hidden">
+                            <img src="../images/Vedang.png" alt="Vedang Kanade" className='w-full h-full object-contain' />
+                        </div>
+                        <div className="p-6 flex flex-col flex-grow space-y-4">
+                            <div>
+                                <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Vedang Kanade</h4>
+                                <p className="text-sm font-tech text-[#C9962E] mt-1">Full Stack Developer + DevOps</p>
                             </div>
-
-                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                Full-stack developer with deep expertise in MongoDB, Express, React, and Node.js. Crafts seamless user experiences with modern JavaScript technologies.
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed flex-grow">
+                                Full-stack developer with deep expertise in MongoDB, Express, React, and Node.js. Crafts seamless user experiences with modern technologies.
                             </p>
-
-                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0] pt-2 border-t border-[#242424]">
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Full-Stack Development</div>
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Web Application Architecture</div>
                             </div>
@@ -879,28 +965,24 @@ export default function BuildAuraApp() {
 
                     {/* Felix Rodrigues */}
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.24 }}
-                        className="p-8 bg-black flex flex-col justify-between"
+                        className="border border-[#242424] bg-[#0A0A0A]/60 card-lift overflow-hidden flex flex-col"
                     >
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-32 h-40 flex items-center justify-center border border-[#242424] shrink-0">
-                                    <img src="../images/Felix.png" alt="felix" className='object-contain' />
-                                </div>
-                                <div>
-                                    <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Felix Rodrigues</h4>
-                                    <p className="text-xs font-tech text-[#C9962E] mt-1">Digital Marketing</p>
-                                </div>
+                        <div className="w-full h-64 bg-gradient-to-br from-[#C9962E] via-[#5FBFAE] to-[#C9962E] flex items-center justify-center overflow-hidden">
+                            <img src="../images/Felix.png" alt="Felix Rodrigues" className='w-full h-full object-contain' />
+                        </div>
+                        <div className="p-6 flex flex-col flex-grow space-y-4">
+                            <div>
+                                <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Felix Rodrigues</h4>
+                                <p className="text-sm font-tech text-[#C9962E] mt-1">Digital Marketing + Third Party</p>
                             </div>
-
-                            <p className="text-[#A0A0A0] text-sm leading-relaxed">
-                                Strategic digital marketing expert focused on brand growth and market positioning. Drives client success through data-driven marketing campaigns and digital strategy.
+                            <p className="text-[#A0A0A0] text-sm leading-relaxed flex-grow">
+                                Strategic digital marketing expert focused on brand growth and market positioning. Drives client success through data-driven campaigns.
                             </p>
-
-                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0]">
+                            <div className="space-y-2 text-xs font-tech text-[#A0A0A0] pt-2 border-t border-[#242424]">
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Digital Marketing Strategy</div>
                                 <div className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#5FBFAE]" /> Brand & Growth Marketing</div>
                             </div>
@@ -913,6 +995,212 @@ export default function BuildAuraApp() {
                         <span className="text-[#C9962E] font-tech font-semibold">📈 Growing Team:</span> As our projects scale and client demands expand, we are actively expanding our team with specialized talent. More developers, designers, and specialists will join us to deliver even greater value and faster turnaround times.
                     </p>
                 </div>
+            </section>
+
+            {/* SOLUTIONS SECTION - SOFTWARE APPS, CRM, LMS, SAAS */}
+            <section id="solutions" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424]">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                    className="max-w-2xl mb-16"
+                >
+                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">Solutions We Build</h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Enterprise-Grade Solutions</h3>
+                    <p className="mt-4 text-[#A0A0A0]">We specialize in building powerful, scalable solutions across multiple domains. Each solution is crafted with production-grade architecture and modern UI/UX.</p>
+                </motion.div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Software Applications */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0, duration: 0.5 }}
+                        whileHover={{ y: -8, boxShadow: '0 20px 60px rgba(201, 150, 46, 0.15)' }}
+                        className="group border border-[#242424] bg-[#0A0A0A]/60 backdrop-blur p-8 card-lift cursor-pointer overflow-hidden relative"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#C9962E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative space-y-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-[#C9962E] to-[#C9962E]/60 rounded-lg flex items-center justify-center">
+                                <Code className="w-7 h-7 text-white" />
+                            </div>
+                            <h4 className="text-lg font-display font-bold text-[#F5F5F4]">Software Applications</h4>
+                            <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                                Custom web and mobile applications built with React, Next.js, and Node.js. Scalable, performant, and production-ready.
+                            </p>
+                            <div className="space-y-2 text-xs font-tech text-[#5FBFAE]">
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Full-stack development
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Real-time capabilities
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> API integrations
+                                </div>
+                            </div>
+                            <motion.div
+                                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C9962E] to-[#5FBFAE]"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                transition={{ delay: 0.2, duration: 0.6 }}
+                                style={{ originX: 0 }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* CRM Solutions */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.1, duration: 0.5 }}
+                        whileHover={{ y: -8, boxShadow: '0 20px 60px rgba(95, 191, 174, 0.15)' }}
+                        className="group border border-[#242424] bg-[#0A0A0A]/60 backdrop-blur p-8 card-lift cursor-pointer overflow-hidden relative"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#5FBFAE]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative space-y-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-[#5FBFAE] to-[#5FBFAE]/60 rounded-lg flex items-center justify-center">
+                                <Users className="w-7 h-7 text-white" />
+                            </div>
+                            <h4 className="text-lg font-display font-bold text-[#F5F5F4]">CRM Solutions</h4>
+                            <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                                Customer relationship management systems designed for sales, support, and marketing automation. Boost productivity instantly.
+                            </p>
+                            <div className="space-y-2 text-xs font-tech text-[#5FBFAE]">
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Sales pipeline management
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Customer analytics
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Automation workflows
+                                </div>
+                            </div>
+                            <motion.div
+                                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#5FBFAE] to-[#C9962E]"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                transition={{ delay: 0.3, duration: 0.6 }}
+                                style={{ originX: 0 }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* LMS Solutions */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        whileHover={{ y: -8, boxShadow: '0 20px 60px rgba(201, 150, 46, 0.15)' }}
+                        className="group border border-[#242424] bg-[#0A0A0A]/60 backdrop-blur p-8 card-lift cursor-pointer overflow-hidden relative"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#C9962E]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative space-y-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-[#C9962E] to-[#C9962E]/60 rounded-lg flex items-center justify-center">
+                                <Layers className="w-7 h-7 text-white" />
+                            </div>
+                            <h4 className="text-lg font-display font-bold text-[#F5F5F4]">LMS Platforms</h4>
+                            <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                                Learning management systems for online courses, training, and skill development. Engage learners with interactive content.
+                            </p>
+                            <div className="space-y-2 text-xs font-tech text-[#5FBFAE]">
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Course management
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Progress tracking
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Certification system
+                                </div>
+                            </div>
+                            <motion.div
+                                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C9962E] to-[#5FBFAE]"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                transition={{ delay: 0.4, duration: 0.6 }}
+                                style={{ originX: 0 }}
+                            />
+                        </div>
+                    </motion.div>
+
+                    {/* SaaS Applications */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        whileHover={{ y: -8, boxShadow: '0 20px 60px rgba(95, 191, 174, 0.15)' }}
+                        className="group border border-[#242424] bg-[#0A0A0A]/60 backdrop-blur p-8 card-lift cursor-pointer overflow-hidden relative"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#5FBFAE]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative space-y-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-[#5FBFAE] to-[#5FBFAE]/60 rounded-lg flex items-center justify-center">
+                                <Cloud className="w-7 h-7 text-white" />
+                            </div>
+                            <h4 className="text-lg font-display font-bold text-[#F5F5F4]">SaaS Platforms</h4>
+                            <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                                Subscription-based software products with multi-tenant architecture, billing systems, and analytics dashboards.
+                            </p>
+                            <div className="space-y-2 text-xs font-tech text-[#5FBFAE]">
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Multi-tenant architecture
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Billing & payments
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5" /> Usage analytics
+                                </div>
+                            </div>
+                            <motion.div
+                                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#5FBFAE] to-[#C9962E]"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                transition={{ delay: 0.5, duration: 0.6 }}
+                                style={{ originX: 0 }}
+                            />
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Additional Info Row */}
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="mt-16 p-8 bg-gradient-to-r from-[#C9962E]/5 to-[#5FBFAE]/5 border border-[#242424]"
+                >
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Zap className="w-5 h-5 text-[#C9962E]" />
+                                <h4 className="font-display font-bold text-[#F5F5F4]">Fast Delivery</h4>
+                            </div>
+                            <p className="text-sm text-[#A0A0A0]">Ship production apps in 4-12 weeks with our proven development process.</p>
+                        </div>
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Shield className="w-5 h-5 text-[#5FBFAE]" />
+                                <h4 className="font-display font-bold text-[#F5F5F4]">Enterprise Security</h4>
+                            </div>
+                            <p className="text-sm text-[#A0A0A0]">Bank-grade security, encryption, and compliance built-in from day one.</p>
+                        </div>
+                        <div className="space-y-2">
+                            <div className="flex items-center gap-2 mb-3">
+                                <Sparkles className="w-5 h-5 text-[#C9962E]" />
+                                <h4 className="font-display font-bold text-[#F5F5F4]">Modern Tech Stack</h4>
+                            </div>
+                            <p className="text-sm text-[#A0A0A0]">Built with React, Next.js, Node.js, PostgreSQL, and AI integrations.</p>
+                        </div>
+                    </div>
+                </motion.div>
             </section>
 
             {/* PARTNERSHIP SECTION */}
@@ -986,7 +1274,7 @@ export default function BuildAuraApp() {
                                 </div>
                                 <div className="pt-4 border-t border-[#5FBFAE]/20">
                                     <p className="text-[#A0A0A0] text-xs font-tech uppercase tracking-wider mb-2">Collaboration</p>
-                                    <p className="text-[#F5F5F4] text-sm">We work seamlessly with Jugaad Marketing to provide end-to-end solutions — combining technical excellence with cutting-edge digital marketing strategies.</p>
+                                    <p className="text-[#F5F5F4] text-sm">We work seamlessly with Jugaad Marketing to provide end-to-end solutions �� combining technical excellence with cutting-edge digital marketing strategies.</p>
                                 </div>
                                 <div className="pt-4 border-t border-[#5FBFAE]/20">
                                     <p className="text-[#A0A0A0] text-xs font-tech uppercase tracking-wider mb-2">Website</p>
