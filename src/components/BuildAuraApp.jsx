@@ -63,7 +63,7 @@ const GmailIcon = ({ size = 18, className = "" }) => (
     </svg>
 );
 
-// --- FONTS ---
+// --- FONTS & PRO ANIMATIONS ---
 const FontLoader = () => (
     <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -72,31 +72,171 @@ const FontLoader = () => (
         .font-body { font-family: 'Inter', sans-serif; font-weight: 500; }
         .font-tech { font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
         h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+        
         .blueprint-grid {
             background-image:
                 linear-gradient(rgba(201, 150, 46, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(201, 150, 46, 0.05) 1px, transparent 1px);
             background-size: 48px 48px;
+            animation: gridPulse 4s ease-in-out infinite;
         }
+        
+        @keyframes gridPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
         .gold-glow {
-            box-shadow: 0 0 80px rgba(201, 150, 46, 0.08);
+            box-shadow: 0 0 80px rgba(201, 150, 46, 0.15);
+            animation: glowPulse 3s ease-in-out infinite;
         }
+        
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 80px rgba(201, 150, 46, 0.15); }
+            50% { box-shadow: 0 0 120px rgba(201, 150, 46, 0.3); }
+        }
+        
         .card-lift {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.4s ease, 
+                        background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .card-lift::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 150, 46, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .card-lift:hover::before {
+            left: 100%;
+        }
+        
         .card-lift:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(201, 150, 46, 0.25), 0 0 40px rgba(95, 191, 174, 0.15);
         }
+        
+        .card-tilt {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        
+        .glow-border {
+            position: relative;
+        }
+        
+        .glow-border::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, #C9962E, #5FBFAE, #C9962E);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .glow-border:hover::after {
+            opacity: 1;
+        }
+        
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+        
         .marquee-track {
             animation: marquee 28s linear infinite;
         }
+        
         .marquee-track:hover {
             animation-play-state: paused;
+        }
+        
+        @keyframes sectionFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(5deg); }
+            66% { transform: translateY(20px) rotate(-5deg); }
+        }
+        
+        @keyframes heroGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-animated-bg {
+            background: linear-gradient(135deg, #000000, #0A0A0A, #000000);
+            background-size: 200% 200%;
+            animation: heroGradient 8s ease infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(201, 150, 46, 0.3), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(201, 150, 46, 0.3); }
+            50% { border-color: rgba(95, 191, 174, 0.6); }
+        }
+        
+        .border-animate {
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(201, 150, 46, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(201, 150, 46, 0.8), 0 0 30px rgba(95, 191, 174, 0.4); }
+        }
+        
+        .text-glow {
+            animation: textGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .rotate-3d {
+            animation: rotate3d 20s linear infinite;
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .pulse-scale {
+            animation: pulse-scale 2s ease-in-out infinite;
         }
     `}</style>
 );
@@ -767,42 +907,152 @@ export default function BuildAuraApp() {
             <FixedNavbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
             <TrustMarquee />
 
-            {/* HERO SECTION */}
-            <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24 md:py-32 blueprint-grid">
+            {/* HERO SECTION - DANGEROUS & FANTASTIC */}
+            <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24 md:py-32 blueprint-grid hero-animated-bg overflow-hidden">
                 <Hero3D />
+                
+                {/* Animated particles background */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none">
+                    {[...Array(30)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute w-1 h-1 bg-[#C9962E] rounded-full"
+                            initial={{ 
+                                x: Math.random() * window.innerWidth, 
+                                y: Math.random() * window.innerHeight,
+                                scale: Math.random() 
+                            }}
+                            animate={{
+                                y: [null, Math.random() * window.innerHeight],
+                                x: [null, Math.random() * window.innerWidth],
+                                scale: [Math.random(), Math.random() * 2],
+                                opacity: [0, 1, 0]
+                            }}
+                            transition={{
+                                duration: Math.random() * 10 + 5,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                        />
+                    ))}
+                </div>
+
                 <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="max-w-5xl mx-auto text-center space-y-8"
+                    initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ 
+                        duration: 1, 
+                        ease: [0.6, -0.05, 0.01, 0.99],
+                        type: "spring",
+                        stiffness: 100
+                    }}
+                    className="max-w-5xl mx-auto text-center space-y-8 relative z-10"
                 >
-                    <div className="space-y-3">
-                        <h1 ref={heroTitleRef} className="font-display text-3xl md:text-2xl lg:text-7xl font-bold text-[#F5F5F4] leading-tight">
-                            Your ideas to <span className="text-[#C9962E]">production</span> in weeks, not months
-                        </h1>
-                    </div>
+                    <motion.div 
+                        className="space-y-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.8 }}
+                    >
+                        <motion.h1 
+                            ref={heroTitleRef} 
+                            className="font-display text-3xl md:text-5xl lg:text-7xl font-bold text-[#F5F5F4] leading-tight"
+                            initial={{ y: 30, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.4, duration: 0.8, type: "spring" }}
+                        >
+                            Your ideas to{' '}
+                            <motion.span 
+                                className="text-[#C9962E] text-glow inline-block"
+                                animate={{ 
+                                    scale: [1, 1.05, 1],
+                                    rotate: [0, 2, -2, 0]
+                                }}
+                                transition={{ 
+                                    duration: 3, 
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            >
+                                production
+                            </motion.span>
+                            {' '}in weeks, not months
+                        </motion.h1>
+                    </motion.div>
 
-                    <p className="font-body text-lg md:text-xl text-[#A0A0A0] max-w-2xl mx-auto">
+                    <motion.p 
+                        className="font-body text-lg md:text-xl text-[#A0A0A0] max-w-2xl mx-auto"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                    >
                         BuildAura transforms your concept into a ship-ready product. Direct access to founders. No middlemen. No bloat. From US startups to Indian enterprises, we deliver.
-                    </p>
+                    </motion.p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                        <a
+                    <motion.div 
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.8, duration: 0.8 }}
+                    >
+                        <motion.a
                             ref={ctaStartRef}
                             href={`mailto:${AGENCY_EMAIL}`}
-                            className="px-8 py-3 bg-[#C9962E] text-black font-tech text-sm uppercase tracking-wider hover:bg-[#E3B84A] transition-colors"
+                            className="relative px-8 py-4 bg-[#C9962E] text-black font-tech text-sm uppercase tracking-wider overflow-hidden group"
+                            whileHover={{ scale: 1.05, boxShadow: "0 10px 40px rgba(201, 150, 46, 0.4)" }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            Start Your Project
-                        </a>
-                        <a
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-[#E3B84A] to-[#C9962E]"
+                                initial={{ x: "-100%" }}
+                                whileHover={{ x: "100%" }}
+                                transition={{ duration: 0.5 }}
+                            />
+                            <span className="relative z-10">Start Your Project</span>
+                        </motion.a>
+                        
+                        <motion.a
                             ref={ctaWorkRef}
                             href="#projects"
-                            className="px-8 py-3 border border-[#C9962E] text-[#C9962E] font-tech text-sm uppercase tracking-wider hover:bg-[#C9962E] hover:text-black transition-colors"
+                            className="px-8 py-4 border-2 border-[#C9962E] text-[#C9962E] font-tech text-sm uppercase tracking-wider relative overflow-hidden group"
+                            whileHover={{ 
+                                scale: 1.05,
+                                borderColor: "#5FBFAE",
+                                color: "#5FBFAE"
+                            }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            See Our Work
-                        </a>
-                    </div>
+                            <motion.div
+                                className="absolute inset-0 bg-[#C9962E]"
+                                initial={{ scaleX: 0 }}
+                                whileHover={{ scaleX: 1 }}
+                                transition={{ duration: 0.3 }}
+                                style={{ originX: 0 }}
+                            />
+                            <span className="relative z-10 group-hover:text-black transition-colors duration-300">See Our Work</span>
+                        </motion.a>
+                    </motion.div>
                 </motion.div>
+                
+                {/* Floating elements */}
+                <motion.div
+                    className="absolute top-20 left-10 w-20 h-20 border-2 border-[#C9962E]/20 rounded-full"
+                    animate={{
+                        y: [0, -30, 0],
+                        rotate: [0, 180, 360],
+                        scale: [1, 1.2, 1]
+                    }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute bottom-20 right-10 w-32 h-32 border border-[#5FBFAE]/20 rounded-lg"
+                    animate={{
+                        y: [0, 40, 0],
+                        rotate: [0, -180, -360],
+                        scale: [1, 0.8, 1]
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                />
             </section>
 
             {/* USER VS CUSTOMER DEMO - Interactive */}
@@ -814,40 +1064,125 @@ export default function BuildAuraApp() {
                 <UserVsCustomerDemo />
             </section>
 
-            {/* SERVICES SECTION */}
+            {/* SERVICES SECTION - EXPLOSIVE ANIMATIONS */}
             <section id="services" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424] overflow-hidden">
-                <Section3DAccent color="#C9962E" type="torus" className="right-0 top-6 w-44 h-44 opacity-35" />
-                <div className="max-w-2xl mb-16">
-                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">01 — Services</h2>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Services we provide</h3>
-                    <p className="mt-4 text-[#A0A0A0]">
+                <Section3DAccent color="#C9962E" type="torus" className="right-0 top-6 w-44 h-44 opacity-35 rotate-3d" />
+                
+                <motion.div 
+                    className="max-w-2xl mb-16"
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, type: "spring" }}
+                >
+                    <motion.h2 
+                        className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3"
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        01 — Services
+                    </motion.h2>
+                    <motion.h3 
+                        className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        Services we provide
+                    </motion.h3>
+                    <motion.p 
+                        className="mt-4 text-[#A0A0A0]"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 }}
+                    >
                         Application development, E-commerce applications, SaaS applications, CRM based applications, HRMS based applications, and much more for any business globally.
-                    </p>
-                </div>
+                    </motion.p>
+                </motion.div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#242424]">
                     {services.map((service, idx) => (
                         <motion.div
                             key={idx}
-                            initial={{ opacity: 0, y: 12, scale: 0.995 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            initial={{ opacity: 0, y: 50, rotateX: -15, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ delay: idx * 0.06, duration: 0.6 }}
-                            whileHover={{ y: -6, scale: 1.01 }}
-                            className="p-8 bg-black flex flex-col justify-between card-tilt glow-border"
+                            transition={{ 
+                                delay: idx * 0.1, 
+                                duration: 0.6,
+                                type: "spring",
+                                stiffness: 100
+                            }}
+                            whileHover={{ 
+                                y: -12, 
+                                scale: 1.03,
+                                rotateY: 5,
+                                rotateX: 5,
+                                transition: { duration: 0.3 }
+                            }}
+                            className="p-8 bg-black flex flex-col justify-between card-tilt glow-border relative group"
                         >
-                            <div>
-                                <div className="mb-4 p-3 w-fit bg-[#0A0A0A] border border-[#C9962E]/20 rounded">
-                                    <div className="text-[#C9962E]">{service.icon}</div>
-                                </div>
-                                <h4 className="font-display font-bold text-[#F5F5F4] text-lg mb-2">{service.title}</h4>
-                                <p className="text-sm text-[#A0A0A0] mb-6">{service.desc}</p>
+                            {/* Animated background gradient on hover */}
+                            <motion.div
+                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                                style={{
+                                    background: "radial-gradient(circle at center, rgba(201, 150, 46, 0.1), transparent 70%)"
+                                }}
+                            />
+                            
+                            <div className="relative z-10">
+                                <motion.div 
+                                    className="mb-4 p-3 w-fit bg-[#0A0A0A] border border-[#C9962E]/20 rounded relative overflow-hidden"
+                                    whileHover={{ scale: 1.1, rotate: 5 }}
+                                    transition={{ type: "spring", stiffness: 300 }}
+                                >
+                                    <motion.div
+                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-[#C9962E]/20 to-transparent"
+                                        animate={{ x: ["-100%", "200%"] }}
+                                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                    />
+                                    <div className="text-[#C9962E] relative z-10">{service.icon}</div>
+                                </motion.div>
+                                <motion.h4 
+                                    className="font-display font-bold text-[#F5F5F4] text-lg mb-2"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 + 0.2 }}
+                                >
+                                    {service.title}
+                                </motion.h4>
+                                <motion.p 
+                                    className="text-sm text-[#A0A0A0] mb-6"
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 + 0.3 }}
+                                >
+                                    {service.desc}
+                                </motion.p>
                             </div>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2 relative z-10">
                                 {service.tags.map((tag, i) => (
-                                    <span key={i} className="px-3 py-1 bg-[#0A0A0A] border border-[#242424] text-[#A0A0A0] text-xs font-tech rounded">
+                                    <motion.span 
+                                        key={i} 
+                                        className="px-3 py-1 bg-[#0A0A0A] border border-[#242424] text-[#A0A0A0] text-xs font-tech rounded"
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: idx * 0.1 + 0.4 + i * 0.05 }}
+                                        whileHover={{ 
+                                            scale: 1.1, 
+                                            backgroundColor: "rgba(201, 150, 46, 0.1)",
+                                            borderColor: "#C9962E",
+                                            color: "#C9962E"
+                                        }}
+                                    >
                                         {tag}
-                                    </span>
+                                    </motion.span>
                                 ))}
                             </div>
                         </motion.div>
@@ -855,53 +1190,154 @@ export default function BuildAuraApp() {
                 </div>
             </section>
 
-            {/* PRICING SECTION */}
+            {/* PRICING SECTION - PREMIUM ANIMATIONS */}
             <section id="pricing" className="relative z-10 py-24 px-6 max-w-7xl mx-auto border-t border-[#242424] overflow-hidden">
-                <Section3DAccent color="#5FBFAE" type="sphere" className="left-0 top-8 w-32 h-32 opacity-30" />
-                <div className="max-w-2xl mb-12">
-                    <h2 className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3">02 — Pricing</h2>
-                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">Our pricing based on client requirements. No fixed rate.</h3>
-                </div>
+                <Section3DAccent color="#5FBFAE" type="sphere" className="left-0 top-8 w-32 h-32 opacity-30 pulse-scale" />
+                
+                <motion.div 
+                    className="max-w-2xl mb-12"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <motion.h2 
+                        className="font-tech text-[11px] uppercase tracking-[0.2em] text-[#C9962E] mb-3"
+                        animate={{ opacity: [0.7, 1, 0.7] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
+                        02 — Pricing
+                    </motion.h2>
+                    <h3 className="text-3xl md:text-4xl font-display font-bold text-[#F5F5F4]">
+                        Our pricing based on client requirements. No fixed rate.
+                    </h3>
+                </motion.div>
 
                 <div className="grid md:grid-cols-3 gap-6">
                     {pricing.map((plan, idx) => (
                         <motion.div
                             key={idx}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 60, rotateX: -20 }}
+                            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                             viewport={{ once: true }}
-                            className={`p-8 border ${plan.highlighted ? 'border-[#C9962E] bg-[#0A0A0A]/60 ring-1 ring-[#C9962E]/30' : 'border-[#242424] bg-black'} card-lift`}
+                            transition={{ 
+                                delay: idx * 0.15,
+                                duration: 0.7,
+                                type: "spring",
+                                stiffness: 80
+                            }}
+                            whileHover={{ 
+                                y: -15, 
+                                scale: 1.05,
+                                rotateY: idx === 1 ? 0 : idx === 0 ? -3 : 3,
+                                transition: { duration: 0.3, type: "spring" }
+                            }}
+                            className={`p-8 border ${plan.highlighted ? 'border-[#C9962E] bg-[#0A0A0A]/60 ring-2 ring-[#C9962E]/30' : 'border-[#242424] bg-black'} card-lift relative overflow-hidden group`}
+                            style={{ transformStyle: "preserve-3d" }}
                         >
-                            <h4 className="font-display font-bold text-[#F5F5F4] text-lg mb-2">{plan.name}</h4>
-                            <p className="text-sm text-[#A0A0A0] mb-4">{plan.desc}</p>
+                            {/* Highlighted card special effects */}
+                            {plan.highlighted && (
+                                <>
+                                    <motion.div
+                                        className="absolute inset-0 bg-gradient-to-br from-[#C9962E]/20 via-transparent to-[#5FBFAE]/10"
+                                        animate={{
+                                            opacity: [0.3, 0.5, 0.3],
+                                            scale: [1, 1.1, 1]
+                                        }}
+                                        transition={{ duration: 3, repeat: Infinity }}
+                                    />
+                                    <motion.div
+                                        className="absolute top-0 right-0 px-4 py-1 bg-[#C9962E] text-black text-xs font-tech font-bold"
+                                        initial={{ x: 100 }}
+                                        whileInView={{ x: 0 }}
+                                        transition={{ delay: 0.5, type: "spring" }}
+                                    >
+                                        POPULAR
+                                    </motion.div>
+                                </>
+                            )}
 
-                            <div className="space-y-2 mb-6 pb-6 border-b border-[#242424]">
-                                <div className="flex items-baseline gap-2">
-                                    <span className="font-display font-bold text-3xl text-[#C9962E]">{plan.priceUSD}</span>
-                                    <span className="text-xs text-[#A0A0A0]">or</span>
-                                </div>
-                                <div className="flex items-baseline gap-2">
-                                    <span className="font-display font-bold text-2xl text-[#5FBFAE]">{plan.priceINR}</span>
-                                    <span className="text-xs text-[#A0A0A0]">INR</span>
-                                </div>
-                                <p className="text-xs text-[#A0A0A0] pt-2">Delivery: {plan.deliveryWeeks}</p>
-                            </div>
+                            {/* Shimmer effect on hover */}
+                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shimmer pointer-events-none" />
 
-                            <div className="space-y-3">
-                                {plan.features.map((feature, i) => (
-                                    <div key={i} className="flex items-center gap-2 text-sm text-[#A0A0A0]">
-                                        <CheckCircle2 className="w-4 h-4 text-[#5FBFAE]" />
-                                        {feature}
+                            <motion.div className="relative z-10">
+                                <motion.h4 
+                                    className="font-display font-bold text-[#F5F5F4] text-lg mb-2"
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.15 + 0.2 }}
+                                >
+                                    {plan.name}
+                                </motion.h4>
+                                <motion.p 
+                                    className="text-sm text-[#A0A0A0] mb-4"
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    transition={{ delay: idx * 0.15 + 0.3 }}
+                                >
+                                    {plan.desc}
+                                </motion.p>
+
+                                <motion.div 
+                                    className="space-y-2 mb-6 pb-6 border-b border-[#242424]"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: idx * 0.15 + 0.4 }}
+                                >
+                                    <div className="flex items-baseline gap-2">
+                                        <motion.span 
+                                            className="font-display font-bold text-3xl text-[#C9962E]"
+                                            whileHover={{ scale: 1.1, color: "#E3B84A" }}
+                                        >
+                                            {plan.priceINR}
+                                        </motion.span>
+                                        <span className="text-xs text-[#A0A0A0]">INR</span>
                                     </div>
-                                ))}
-                            </div>
+                                    <motion.p 
+                                        className="text-xs text-[#A0A0A0] pt-2"
+                                        animate={{ opacity: [0.5, 1, 0.5] }}
+                                        transition={{ duration: 2, repeat: Infinity }}
+                                    >
+                                        Delivery: {plan.deliveryWeeks}
+                                    </motion.p>
+                                </motion.div>
 
-                            <a
-                                href={`mailto:${AGENCY_EMAIL}`}
-                                className="mt-8 block text-center py-3 bg-[#C9962E] text-black font-tech text-xs uppercase tracking-wider hover:bg-[#E3B84A] transition-colors"
-                            >
-                                Get Started
-                            </a>
+                                <div className="space-y-3 mb-6">
+                                    {plan.features.map((feature, i) => (
+                                        <motion.div 
+                                            key={i} 
+                                            className="flex items-center gap-2 text-sm text-[#A0A0A0]"
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: idx * 0.15 + 0.5 + i * 0.05 }}
+                                            whileHover={{ x: 5, color: "#F5F5F4" }}
+                                        >
+                                            <motion.div
+                                                animate={{ rotate: 360 }}
+                                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                            >
+                                                <CheckCircle2 className="w-4 h-4 text-[#5FBFAE]" />
+                                            </motion.div>
+                                            {feature}
+                                        </motion.div>
+                                    ))}
+                                </div>
+
+                                <motion.a
+                                    href={`mailto:${AGENCY_EMAIL}`}
+                                    className="block text-center py-3 bg-[#C9962E] text-black font-tech text-xs uppercase tracking-wider relative overflow-hidden group/btn"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <motion.div
+                                        className="absolute inset-0 bg-[#E3B84A]"
+                                        initial={{ x: "-100%" }}
+                                        whileHover={{ x: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                    <span className="relative z-10">Get Started</span>
+                                </motion.a>
+                            </motion.div>
                         </motion.div>
                     ))}
                 </div>
